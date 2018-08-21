@@ -1,6 +1,11 @@
 # 开始使用
 
-> 一个基于 [Weex](https://github.com/apache/incubator-weex) 的富交互、轻量级、高性能的 UI 组件库（目前仅支持安卓端）
+> 一个基于 [Weex](https://github.com/apache/incubator-weex) 的富交互、轻量级、高性能的 UI 组件库。
+
+## 文档
+
+- [中文文档](http://weiui.cc/)
+- English document（Under construction）
 
 ## 演示
 
