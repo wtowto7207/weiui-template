@@ -1,0 +1,315 @@
+//
+//  AppDelegate.m
+//  WeexWeiui
+//
+//  Created by 高一 on 2018/8/15.
+//
+
+#import "AppDelegate.h"
+#import "MNAssistiveBtn.h"
+#import "ViewController.h"
+#import "WeiuiStorageManager.h"
+#import "WeiuiNewPageManager.h"
+#import "WeiuiUmengManager.h"
+#import "scanViewController.h"
+#import "DeviceUtil.h"
+#import <SocketRocket/SRWebSocket.h>
+
+@interface AppDelegate ()<SRWebSocketDelegate>
+
+@property (nonatomic, strong) SRWebSocket *webSocket;
+@property (nonatomic, assign) BOOL isSocketConnect;
+
+@end
+
+@implementation AppDelegate
+
+ViewController *vController;
+MNAssistiveBtn *debugBtn;
+NSString *socketHost;
+NSString *socketPort;
+NSTimeInterval reconnectionNumber;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    #if DEBUG
+    vController = [[ViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vController];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = navi;
+    [self.window makeKeyAndVisible];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setDebugBtn:self.isSocketConnect];
+        [self setSocketData];
+        [self setSocketConnect:@"initialize"];
+    });
+    #endif
+    
+    [self initUmeng:launchOptions];
+    return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+}
+
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+//获取中间字符串
+- (NSString *) getMiddle:(NSString *)string start:(NSString *)startString to:(NSString *)endString {
+    NSString *text = string;
+    if (text.length) {
+        if (startString.length && [text containsString:startString]) {
+            NSRange startRange = [text rangeOfString:startString];
+            NSRange range = NSMakeRange(startRange.location + startRange.length, text.length - startRange.location - startRange.length);
+            text = [text substringWithRange:range];
+        }
+        if (endString.length && [text containsString:endString]) {
+            NSRange endRange = [text rangeOfString:endString];
+            NSRange range = NSMakeRange(0, endRange.location);
+            text = [text substringWithRange:range];
+        }
+    }
+    return text;
+}
+
+//初始化友盟
+- (void)initUmeng:(NSDictionary *)launchOptions {
+    NSString *filePath = [[ NSBundle mainBundle ] pathForResource : @"bundlejs/weiui/config" ofType : @"json" ];
+    NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
+    NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
+    NSMutableDictionary *umeng = [jsonData objectForKey:@"umeng"];
+    NSString *enabled = [NSString stringWithFormat:@"%@", umeng[@"enabled"]];
+    //
+    if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
+        NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
+        NSString *appSecret = [NSString stringWithFormat:@"%@", umeng[@"appSecret"]];
+        NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
+        [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:launchOptions];
+    }else{
+        [[WeiuiUmengManager sharedIntstance] init:@"" secret:@"" channel:@"" launchOptions:launchOptions];
+    }
+}
+
+//添加悬浮按钮
+-(void) setDebugBtn:(BOOL)isSuccess {
+    if (debugBtn) {
+        [debugBtn setBackgroundUIImage: [UIImage imageNamed:isSuccess ? @"debugButtonSuccess" : @"debugButtonConnect"]];
+        return;
+    }
+    CGFloat touchW = 48;
+    CGFloat touchH = 48;
+    CGFloat touchX = [[UIScreen mainScreen] bounds].size.width - touchW;
+    CGFloat touchY = ([[UIScreen mainScreen] bounds].size.height - touchH) / 2;
+    CGRect frame = CGRectMake(touchX, touchY, touchW, touchH);
+    debugBtn = [MNAssistiveBtn mn_touchWithType:MNAssistiveTypeNone
+                                          Frame:frame
+                                          title:@"DEV"
+                                     titleColor:[UIColor whiteColor]
+                                      titleFont:[UIFont systemFontOfSize:12]
+                                backgroundColor:nil
+                                backgroundImage:[UIImage imageNamed:isSuccess ? @"debugButtonSuccess" : @"debugButtonConnect"]];
+    [self.window addSubview:debugBtn];
+    [debugBtn addTarget:self action:@selector(clickDebugBtn) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//点击悬浮按钮
+- (void) clickDebugBtn {
+    UIAlertController *alertController = [UIAlertController
+                                          alertControllerWithTitle:@"开发工具菜单"
+                                          message:nil
+                                          preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:self.isSocketConnect ? @"WiFi真机同步 [已连接]" : @"WiFi真机同步" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self wifiSetting];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"扫一扫" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self openScan];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"刷新" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self refresh];
+    }]];
+    
+    [self.window.rootViewController presentViewController:alertController animated:TRUE completion:nil];
+}
+
+//WiFi真机同步配置
+- (void) wifiSetting {
+    UIAlertController * alertController = [UIAlertController
+                                           alertControllerWithTitle: @"WiFi真机同步配置"
+                                           message: @"配置成功后，可实现真机同步实时预览"
+                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"请输入IP地址";
+        textField.text = socketHost;
+        textField.textColor = [UIColor blueColor];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"请输入端口号";
+        textField.text = socketPort;
+        textField.textColor = [UIColor blueColor];
+        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+    }];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"连接" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSArray * textfields = alertController.textFields;
+        UITextField * hostField = textfields[0];
+        UITextField * portFiled = textfields[1];
+        socketHost = hostField.text;
+        socketPort = portFiled.text;
+        [self setSocketConnect:@"initialize"];
+    }]];
+
+    UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    alertWindow.rootViewController = [[UIViewController alloc] init];
+    alertWindow.windowLevel = UIWindowLevelAlert + 1;
+    [alertWindow makeKeyAndVisible];
+    [alertWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
+//打开扫一扫
+- (void) openScan {
+    scanViewController *scan = [[scanViewController alloc]init];
+    scan.desc = nil;
+    scan.successClose = YES;
+    scan.scanerBlock = ^(NSDictionary *dic) {
+        if ([dic[@"status"] isEqualToString:@"success"]) {
+            NSString *text = dic[@"url"];
+            NSString *url = text, *host = @"", *port = @"";
+            if ([url hasPrefix:@"http"]) {
+                if ([text containsString:@"?socket="]) {
+                    url = [self getMiddle:text start:nil to:@"?socket="];
+                    host = [self getMiddle:text start:@"?socket=" to:@":"];
+                    port = [self getMiddle:text start:[NSString stringWithFormat:@"?socket=%@:", host] to:@"&"];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [WeiuiNewPageManager sharedIntstance].weexInstance = [[WXSDKManager bridgeMgr] topInstance];
+                    [[WeiuiNewPageManager sharedIntstance] openPage:@{@"url": url} callback:nil];
+                });
+                
+                if (host.length && port.length) {
+                    socketHost = host;
+                    socketPort = port;
+                    [self setSocketConnect:@"back"];
+                }
+            }
+            
+        }
+    };
+    [[[DeviceUtil getTopviewControler] navigationController] pushViewController:scan animated:YES];
+}
+
+//刷新当前页面
+- (void) refresh {
+    [[WeiuiNewPageManager sharedIntstance] reloadPage:nil];
+}
+
+//获取socket地址及端口
+- (void) setSocketData {
+    NSString *filePath = [[ NSBundle mainBundle ] pathForResource : @"bundlejs/weiui/config" ofType : @"json" ];
+    NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
+    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
+    NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
+    socketHost = [NSString stringWithFormat:@"%@", jsonData[@"socketHost"]];
+    socketPort = [NSString stringWithFormat:@"%@", jsonData[@"socketPort"]];
+}
+
+//开始请求连接
+- (void) setSocketConnect: (NSString *) param {
+    self.webSocket.delegate = nil;
+    [self.webSocket close];
+    
+    if (self.isSocketConnect != NO) {
+        self.isSocketConnect = NO;
+        [self setDebugBtn:self.isSocketConnect];
+    }
+    
+    if (!socketHost.length || !socketPort.length) {
+        return;
+    }
+    
+    NSString *wsUrl = [NSString stringWithFormat:@"ws://%@:%@?mode=%@", socketHost, socketPort, param];
+    self.webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:wsUrl]]];
+    self.webSocket.delegate = self;
+    [self.webSocket open];
+}
+
+//长链接已连接成功
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket{
+    reconnectionNumber = 0;
+    if (self.isSocketConnect != YES) {
+        self.isSocketConnect = YES;
+        [self setDebugBtn:self.isSocketConnect];
+    }
+}
+
+//请求长链接失败 及其原因
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error{
+    self.webSocket = nil;
+    if (self.isSocketConnect != NO) {
+        self.isSocketConnect = NO;
+        [self setDebugBtn:self.isSocketConnect];
+    }
+    //重连
+    if (reconnectionNumber < 64) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(reconnectionNumber * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self setSocketConnect:@"reconnection"];
+        });
+        if (reconnectionNumber == 0) {
+            reconnectionNumber = 2;
+        }else{
+            reconnectionNumber *= 2;
+        }
+    }
+}
+
+//长链接收到消息
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message{
+    NSString *msg = (NSString *)message;
+    if ([msg hasPrefix:@"HOMEPAGE:"]) {
+        [[[DeviceUtil getTopviewControler] navigationController] popToRootViewControllerAnimated:NO];
+        [vController loadUrl:[msg substringFromIndex:9]];
+    }else if ([msg hasPrefix:@"HOMEPAGEBACK:"]) {
+        [vController loadUrl:[msg substringFromIndex:14]];
+    }else if ([msg isEqualToString:@"RELOADPAGE"]) {
+        [self refresh];
+    }
+}
+
+//长链接断开 及其原因
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean{
+    self.webSocket.delegate = nil;
+    self.webSocket = nil;
+    if (self.isSocketConnect != NO) {
+        self.isSocketConnect = NO;
+        [self setDebugBtn:self.isSocketConnect];
+    }
+}
+
+@end

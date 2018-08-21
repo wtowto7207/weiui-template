@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">WeexWeiui</string>
+
+    <string name="welcome_content">欢迎您的到来</string>
+
+    <string name="scan_qr_code">扫码</string>
+
+    <string name="page_refresh">刷新</string>
+
+</resources>
