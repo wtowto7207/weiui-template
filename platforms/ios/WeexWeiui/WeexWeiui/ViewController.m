@@ -78,7 +78,7 @@ WXMainViewController *homeController;
     NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
     NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
-    NSMutableDictionary *rongim = [jsonData objectForKey:@"rongim"];
+    NSMutableDictionary *rongim = [[jsonData objectForKey:@"rongim"] objectForKey:@"ios"];
     NSString *enabled = [NSString stringWithFormat:@"%@", rongim[@"enabled"]];
     //
     if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
@@ -87,8 +87,6 @@ WXMainViewController *homeController;
         [WeexSDKManager sharedIntstance].rongKey = appKey;
         [WeexSDKManager sharedIntstance].rongSec = appSecret;
         [[WeiuiRongcloudManager sharedIntstance] init:appKey appSecret:appSecret];
-    }else{
-        [[WeiuiRongcloudManager sharedIntstance] init:@"" appSecret:@""];
     }
 }
 

@@ -37,17 +37,13 @@ public class MyApplication extends Application {
         weiui_picture.init();
         //
         JSONObject jsonData = weiuiJson.parseObject(weiuiCommon.getAssetsJson("weiui/config.json", this));
-        JSONObject rongim = weiuiJson.parseObject(jsonData.get("rongim"));
+        JSONObject rongim = weiuiJson.parseObject(weiuiJson.parseObject(jsonData.get("rongim")).get("android"));
         if (weiuiJson.getBoolean(rongim, "enabled")) {
             weiui_rongim.init(weiuiJson.getString(rongim, "appKey"), weiuiJson.getString(rongim, "appSecret"));
-        }else{
-            weiui_rongim.init();
         }
-        JSONObject umeng = weiuiJson.parseObject(jsonData.get("umeng"));
+        JSONObject umeng = weiuiJson.parseObject(weiuiJson.parseObject(jsonData.get("umeng")).get("android"));
         if (weiuiJson.getBoolean(umeng, "enabled")) {
             weiui_umeng.init(weiuiJson.getString(umeng, "appKey"), weiuiJson.getString(umeng, "appSecret"), weiuiJson.getString(umeng, "channel"));
-        }else{
-            weiui_umeng.init(null, null);
         }
     }
 }

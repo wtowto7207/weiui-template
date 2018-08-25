@@ -1,1 +1,1 @@
-{"homePage":"","rongim":{"enabled":false,"appKey":"","appSecret":""},"umeng":{"enabled":false,"appKey":"","appSecret":"","channel":""},"socketHost":"","socketPort":""}
+{"homePage":"","rongim":{"ios":{"enabled":false,"appKey":"","appSecret":""},"android":{"enabled":false,"appKey":"","appSecret":""}},"umeng":{"ios":{"enabled":false,"appKey":"","appSecret":"","channel":""},"android":{"enabled":false,"appKey":"","appSecret":"","channel":""}},"socketHost":"","socketPort":""}

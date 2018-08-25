@@ -100,7 +100,7 @@ NSTimeInterval reconnectionNumber;
     NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
     NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
     NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
-    NSMutableDictionary *umeng = [jsonData objectForKey:@"umeng"];
+    NSMutableDictionary *umeng = [[jsonData objectForKey:@"umeng"] objectForKey:@"ios"];
     NSString *enabled = [NSString stringWithFormat:@"%@", umeng[@"enabled"]];
     //
     if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
@@ -108,8 +108,6 @@ NSTimeInterval reconnectionNumber;
         NSString *appSecret = [NSString stringWithFormat:@"%@", umeng[@"appSecret"]];
         NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
         [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:launchOptions];
-    }else{
-        [[WeiuiUmengManager sharedIntstance] init:@"" secret:@"" channel:@"" launchOptions:launchOptions];
     }
 }
 
