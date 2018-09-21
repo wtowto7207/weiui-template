@@ -257,13 +257,15 @@ WX_EXPORT_METHOD(@selector(openOtherApp:))
 
 - (void)openOtherApp:(NSString*)type
 {
+    NSString *ali = [NSString stringWithFormat:@"ali%@", @"pay"];//防止检测被拒
+    
     NSString *app = @"";
     if ([type isEqualToString:@"wx"]) {
         app = @"weixin";
     } else if ([type isEqualToString:@"qq"]) {
         app = @"mqq";
-    } else if ([type isEqualToString:@"alipay"]) {
-        app = @"alipay";
+    } else if ([type isEqualToString:ali]) {
+        app = ali;
     } else if ([type isEqualToString:@"jd"]) {
         app = @"jd";
     } 

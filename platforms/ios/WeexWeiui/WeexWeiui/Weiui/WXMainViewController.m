@@ -306,8 +306,8 @@
                     NSDictionary *saveDic = @{kCacheUrl:fullPath, kCacheTime:@(time)};
                     [[WeexSDKManager sharedIntstance].cacheData setObject:saveDic forKey:ws.url];
                     
-                    ws.URL = [NSURL fileURLWithPath:fullPath];
                     dispatch_async(dispatch_get_main_queue(), ^{
+                        ws.URL = [NSURL fileURLWithPath:fullPath];
                         [ws renderView];
                     });
                 }

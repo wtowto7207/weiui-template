@@ -52,6 +52,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear: animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+
     if (_session != nil) {
         [self.session startRunning];
     }
@@ -68,6 +71,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear: animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
     [self.session stopRunning];
     [self.scanView stopScanAnimation];
 }

@@ -258,7 +258,7 @@ WX_EXPORT_METHOD(@selector(setSideline:))
 
 - (void)insertSubview:(WXComponent *)subcomponent atIndex:(NSInteger)index
 {
-    [super insertSubview:subcomponent atIndex:index];
+//    [super insertSubview:subcomponent atIndex:index];
     
     if ([subcomponent isKindOfClass:[WeiuiTabbarPageComponent class]]) {
         if (self.subComps.count == 0) {
@@ -358,6 +358,7 @@ WX_EXPORT_METHOD(@selector(setSideline:))
 
 - (void)loadTabView
 {
+    NSLog(@"%f, %f", self.view.frame.size.width, self.view.frame.size.height);
     if ([_ktabType isEqualToString:@"bottom"]) {
         self.bodyView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - _ktabHeight);
         self.tabView.frame = CGRectMake(0, self.view.frame.size.height - _ktabHeight, self.view.frame.size.width, _ktabHeight);

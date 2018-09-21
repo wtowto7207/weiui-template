@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -534,7 +535,9 @@ public class weiuiModule extends WXModule {
         Object var = weiuiCommon.getVariate("__weiuiModule::getImei");
         if (var == null) {
             var = weiuiCommon.getImei(mWXSDKInstance.getContext());
-            weiuiCommon.setVariate("__weiuiModule::getImei", var);
+            if (!TextUtils.isEmpty(weiuiParse.parseStr(var))) {
+                weiuiCommon.setVariate("__weiuiModule::getImei", var);
+            }
         }
         return weiuiParse.parseStr(var);
     }

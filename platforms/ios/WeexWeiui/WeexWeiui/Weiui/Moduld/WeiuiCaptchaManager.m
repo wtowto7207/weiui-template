@@ -12,6 +12,12 @@
 
 #define CaptchaBgViewTag 200
 
+@interface WeiuiCaptchaManager ()
+
+@property (nonatomic, assign) BOOL isCanVerify;
+
+@end
+
 @implementation WeiuiCaptchaManager
 
 + (WeiuiCaptchaManager *)sharedIntstance {
@@ -32,9 +38,9 @@
     
     if (imgUrl.length > 0) {
         //获取图片
-//        NSString * imageUrl = [imgUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        //        NSString * imageUrl = [imgUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString * imageUrl = [imgUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet characterSetWithCharactersInString:@"`#%^{}\"[]|\\<> "].invertedSet];
-
+        
         UIImage *newImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:imageUrl];//用地址去本地找图片
         if (newImage != nil) {//如果本地有
             [self loadCaptchaView:newImage];
@@ -57,7 +63,7 @@
 - (void)loadCaptchaView:(UIImage*)img
 {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
-
+    
     UIView *bgView = [[UIView alloc] initWithFrame:window.bounds];
     bgView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.7f];
     bgView.tag = CaptchaBgViewTag;
@@ -69,6 +75,7 @@
     _puzzleVerifyView = [[TTGPuzzleVerifyView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
     _puzzleVerifyView.center = bgView.center;
     _puzzleVerifyView.image = img;
+    _puzzleVerifyView.puzzleSize = CGSizeMake(60, 60);
     _puzzleVerifyView.puzzleBlankPosition = CGPointMake(200, 40);
     _puzzleVerifyView.puzzlePosition = CGPointMake(10, 40);
     _puzzleVerifyView.delegate = self;
@@ -82,13 +89,15 @@
     slider.minimumValue = 0;
     slider.maximumValue = 1;
     [slider addTarget:self action:@selector(sliderChangeEvent:) forControlEvents:UIControlEventValueChanged];
+    [slider addTarget:self action:@selector(sliderTouchDown:) forControlEvents:UIControlEventTouchDown];
+    [slider addTarget:self action:@selector(sliderTouchUpInSide:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:slider];
     
     slider.value = 0.1;
     _puzzleVerifyView.puzzleXPercentage = slider.value;
     
     UILabel *markLab = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x, slider.frame.size.height + slider.frame.origin.y, slider.frame.size.width, 30)];
-    markLab.font = [UIFont systemFontOfSize:12];
+    markLab.font = [UIFont systemFontOfSize:14];
     markLab.textColor = [UIColor whiteColor];
     markLab.textAlignment = NSTextAlignmentCenter;
     markLab.text = @"请按住滑块，拖动完成上方拼图";
@@ -102,7 +111,7 @@
     [closeBtn addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:closeBtn];
     
-    self.callback(@{@"status":@"create", @"pageName":self.pageName}, NO);
+    self.callback(@{@"status":@"create", @"pageName":self.pageName}, YES);
 }
 
 
@@ -111,13 +120,29 @@
     _puzzleVerifyView.puzzleXPercentage = slider.value;
 }
 
+- (void)sliderTouchDown:(UISlider*)slider
+{
+    _isCanVerify = NO;
+}
+
+- (void)sliderTouchUpInSide:(UISlider*)slider
+{
+    _isCanVerify = YES;
+    _puzzleVerifyView.puzzleXPercentage = slider.value;
+    
+    if (![_puzzleVerifyView isVerified]) {
+        _puzzleVerifyView.puzzleXPercentage = 0.1;
+        slider.value = 0.1;
+    }
+}
+
 - (void)closeClick
 {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     UIView *bgView = [window viewWithTag:CaptchaBgViewTag];
     [bgView removeFromSuperview];
     
-    self.callback(@{@"status":@"failed", @"pageName":self.pageName}, NO);
+    self.callback(@{@"status":@"failed", @"pageName":self.pageName}, YES);
     
     self.callback(@{@"status":@"destroy", @"pageName":self.pageName}, NO);
 }
@@ -125,19 +150,29 @@
 #pragma mark - TTGPuzzleVerifyViewDelegate
 
 - (void)puzzleVerifyView:(TTGPuzzleVerifyView *)puzzleVerifyView didChangedVerification:(BOOL)isVerified {
+    
+    if (!_isCanVerify) {
+        return;
+    }
+    
     if ([_puzzleVerifyView isVerified]) {
         [_puzzleVerifyView completeVerificationWithAnimation:YES];
         _puzzleVerifyView.enable = NO;
-//        _logLabel.text = @"Verify done !";
+        //        _logLabel.text = @"Verify done !";
         
         UIWindow *window = [UIApplication sharedApplication].delegate.window;
         UIView *bgView = [window viewWithTag:CaptchaBgViewTag];
         [bgView removeFromSuperview];
         
-        self.callback(@{@"status":@"success", @"pageName":self.pageName}, NO);
+        self.callback(@{@"status":@"success", @"pageName":self.pageName}, YES);
         
         self.callback(@{@"status":@"destroy", @"pageName":self.pageName}, NO);
     }
+}
+
+- (void)puzzleVerifyView:(TTGPuzzleVerifyView *)puzzleVerifyView didChangedPuzzlePosition:(CGPoint)newPosition xPercentage:(CGFloat)xPercentage yPercentage:(CGFloat)yPercentage
+{
+    
 }
 
 @end

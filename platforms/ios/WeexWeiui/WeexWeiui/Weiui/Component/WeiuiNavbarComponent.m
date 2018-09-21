@@ -61,7 +61,12 @@
 
 //        bool isNan = isnan(self.cssNode->style.dimensions[CSS_HEIGHT]);
 //        if (isNan) {
-//            self.cssNode->style.dimensions[CSS_HEIGHT] = SCALE(100);
+            self.cssNode->style.dimensions[CSS_HEIGHT] = SCALE(100);
+//        } else {
+//            CGFloat height = self.cssNode->style.dimensions[CSS_HEIGHT];
+//            if (height < SCALE(100)) {
+//                self.cssNode->style.dimensions[CSS_HEIGHT] = SCALE(100);
+//            }
 //        }
     }
 

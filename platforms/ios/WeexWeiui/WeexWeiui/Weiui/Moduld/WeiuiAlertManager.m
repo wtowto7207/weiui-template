@@ -69,12 +69,9 @@
     NSString *title = @"";
     NSString *message = @"";
     BOOL cancelable = YES;
-    NSArray *buttons = @[@"确定"];
+    NSArray *buttons = @[@"取消", @"确定"];
     if ([params isKindOfClass:[NSString class]]) {
         title = (NSString*)params;
-        message = @"";
-        cancelable = YES;
-        buttons = @[@"确定"];
     } else if ([params isKindOfClass:[NSDictionary class]]) {
         title = params[@"title"] ? [WXConvert NSString:params[@"title"]] : @"";
         message = params[@"message"] ? [WXConvert NSString:params[@"message"]] : @"";

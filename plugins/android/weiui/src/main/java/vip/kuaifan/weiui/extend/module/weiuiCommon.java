@@ -1,5 +1,6 @@
 package vip.kuaifan.weiui.extend.module;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -54,6 +56,7 @@ import vip.kuaifan.weiui.extend.integration.glide.request.transition.Transition;
 import vip.kuaifan.weiui.extend.integration.xutils.common.util.FileUtil;
 import vip.kuaifan.weiui.extend.integration.xutils.x;
 import vip.kuaifan.weiui.extend.module.rxtools.tool.RxEncryptTool;
+import vip.kuaifan.weiui.extend.module.utilcode.util.PermissionUtils;
 
 public class weiuiCommon {
 
@@ -729,20 +732,45 @@ public class weiuiCommon {
      * @param ctx
      * @return
      */
-    @SuppressLint({"MissingPermission", "NewApi", "HardwareIds"})
+    @SuppressLint({"MissingPermission", "NewApi", "HardwareIds", "WrongConstant"})
     public static String getImei(Context ctx) {
-        String imei = "";
-        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
-        if (tm != null) {
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    imei = tm.getImei();
-                }else{
-                    imei = tm.getDeviceId();
-                }
-            } catch (Exception ignored) {  }
+        final String[] result = {null};
+        final CountDownLatch latch = new CountDownLatch(1);
+        new Thread(() -> PermissionUtils.permission(Manifest.permission.READ_PHONE_STATE)
+                .rationale(shouldRequest -> PermissionUtils.showRationaleDialog(ctx, shouldRequest))
+                .callback(new PermissionUtils.FullCallback() {
+                    @Override
+                    public void onGranted(List<String> permissionsGranted) {
+                        String imei = "";
+                        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (tm != null) {
+                            try {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    imei = tm.getImei();
+                                }else{
+                                    imei = tm.getDeviceId();
+                                }
+                            } catch (Exception ignored) {  }
+                        }
+                        result[0] = imei;
+                        latch.countDown();
+                    }
+
+                    @Override
+                    public void onDenied(List<String> permissionsDeniedForever, List<String> permissionsDenied) {
+                        if (!permissionsDeniedForever.isEmpty()) {
+                            PermissionUtils.showOpenAppSettingDialog(ctx);
+                        }
+                        result[0] = "";
+                        latch.countDown();
+                    }
+                }).request()).start();
+        try {
+            latch.await();
+        } catch (InterruptedException ignored) {
+            //
         }
-        return imei;
+        return result[0];
     }
 
     /**

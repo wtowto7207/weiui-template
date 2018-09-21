@@ -8,6 +8,7 @@
 
 #import "WeiuiAjaxManager.h"
 #import "AFNetworking.h"
+#import "SDImageCache.h"
 
 #define CachaName @"ajax_cache.txt"
 #define CacheCancelDate @"cancel_date"
@@ -73,7 +74,8 @@
     if ([dataType isEqualToString:@"json"]) {
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
     } else if ([dataType isEqualToString:@"text"]) {
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", @"text/plain", nil];
     }
     
     //设置请求头
@@ -89,23 +91,21 @@
                 options:NSCaseInsensitiveSearch] == NSOrderedSame) {
         NSURLSessionDataTask *dataTask = [manager GET:url parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"%@\n%@", url, responseObject);
-            if (responseObject) {
+            if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
                 if ([[responseObject objectForKey:@"ret"] integerValue] == 1) {
-                    NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                    callback(res, YES);
-                    
                     //加入缓存
                     if (cache > 0 && [responseObject isKindOfClass:[NSDictionary class]]) {
                         [ws saveFile:responseObject key:url cache:cache];
                     }
-                } else {
-                    NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                    callback(res, YES);
                 }
-                
-                NSDictionary *result2 = @{@"status":@"complete", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                callback(result2, NO);
+            } else {
+                responseObject = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             }
+            NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
+            callback(res, YES);
+            
+            NSDictionary *result2 = @{@"status":@"complete", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
+            callback(result2, NO);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
             NSDictionary *res = @{@"status":@"error", @"name":name, @"url":url, @"cache":@(NO), @"result":@{}};
@@ -123,25 +123,24 @@
                      options:NSCaseInsensitiveSearch] == NSOrderedSame && files.count == 0) {
         NSURLSessionDataTask *dataTask = [manager POST:url parameters:data progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"%@\n%@", url, responseObject);
-            if (responseObject) {
+            if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
                 if ([[responseObject objectForKey:@"ret"] integerValue] == 1) {
                     NSDictionary *data = responseObject[@"data"];
-                    
-                    NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                    callback(res, YES);
                     
                     //加入缓存
                     if (cache > 0 && [data isKindOfClass:[NSDictionary class]]) {
                         [ws saveFile:data key:url cache:cache];
                     }
-                } else {
-                    NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                    callback(res, YES);
                 }
-                
-                NSDictionary *result2 = @{@"status":@"complete", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
-                callback(result2, NO);
+            } else {
+                responseObject = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             }
+            
+            NSDictionary *res = @{@"status":@"success", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
+            callback(res, YES);
+            
+            NSDictionary *result2 = @{@"status":@"complete", @"name":name, @"url":url, @"cache":@(NO), @"result":responseObject};
+            callback(result2, NO);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
             NSDictionary *res = @{@"status":@"error", @"name":name, @"url":url, @"cache":@(NO), @"result":@{}};
@@ -162,6 +161,11 @@
                 if ([obj isKindOfClass:[NSString class]]) {
                     NSString *fileName = files[key];
                     UIImage *image = [UIImage imageWithContentsOfFile:fileName];
+                    if (!image) {
+                        //缓存
+                        NSString *newUrl = [key stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+                        image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:newUrl];
+                    }
                     NSData *data = UIImagePNGRepresentation(image);
                     [formData appendPartWithFileData:data
                                                 name:key
@@ -171,6 +175,11 @@
                     for (NSInteger i = 0; i < [obj count]; i++) {
                         NSString *fileName = obj[i];
                         UIImage *image = [UIImage imageWithContentsOfFile:fileName];
+                        if (!image) {
+                            //缓存
+                            NSString *newUrl = [fileName stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+                            image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:newUrl];
+                        }
                         NSString *name = [NSString stringWithFormat:@"%@[%ld]", key, i];
                         NSData *data = UIImagePNGRepresentation(image);
                         [formData appendPartWithFileData:data

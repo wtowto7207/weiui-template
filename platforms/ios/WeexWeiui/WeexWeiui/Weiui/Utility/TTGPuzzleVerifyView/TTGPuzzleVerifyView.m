@@ -23,6 +23,9 @@ static CGFloat kTTGPuzzleAnimationDuration = 0.3;
 @property (nonatomic, assign) CGPoint puzzleContainerPosition;
 
 @property (nonatomic, assign) BOOL lastVerification;
+
+@property (nonatomic, assign) BOOL isCanVerification;//是否抬起手势认证
+
 @end
 
 @implementation TTGPuzzleVerifyView
@@ -158,7 +161,9 @@ static CGFloat kTTGPuzzleAnimationDuration = 0.3;
     }
     
     // Callback
-    [self performCallback];
+    if (UIGestureRecognizerStateEnded == panGestureRecognizer.state) {
+        [self performCallback];
+    }
 }
 
 #pragma mark - Override
@@ -238,7 +243,7 @@ static CGFloat kTTGPuzzleAnimationDuration = 0.3;
     
     // Callback if verification changed
     if (_lastVerification != [self isVerified]) {
-        _lastVerification = [self isVerified];
+//        _lastVerification = [self isVerified];
         
         // Delegate
         if ([_delegate respondsToSelector:@selector(puzzleVerifyView:didChangedVerification:)]) {
