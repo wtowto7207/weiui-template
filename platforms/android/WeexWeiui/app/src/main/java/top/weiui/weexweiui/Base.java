@@ -23,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import vip.kuaifan.weiui.BuildConfig;
 import vip.kuaifan.weiui.extend.integration.glide.Glide;
 import vip.kuaifan.weiui.extend.integration.glide.load.engine.DiskCacheStrategy;
 import vip.kuaifan.weiui.extend.integration.glide.request.RequestOptions;
@@ -262,40 +263,12 @@ public class Base {
 
         private static String apiUrl = "https://app.weiui.cc/";
 
-        public static int init(Activity activity) {
-            String appkey = config.getString("appKey");
-            if (appkey.length() == 0) {
-                return 0;
-            }
-            //读取云配置
-            Map<String, Object> data = new HashMap<>();
-            data.put("appkey", appkey);
-            data.put("version", weiuiCommon.getLocalVersion(weiui.getApplication()));
-            data.put("versionName", weiuiCommon.getLocalVersionName(weiui.getApplication()));
-            data.put("screenWidth", ScreenUtils.getScreenWidth());
-            data.put("screenHeight", ScreenUtils.getScreenHeight());
-            weiuiIhttp.get("main", apiUrl + "api/client/app", data, new weiuiIhttp.ResultCallback() {
-                @Override
-                public void success(String resData, boolean isCache) {
-                    JSONObject json = weiuiJson.parseObject(resData);
-                    if (json.getIntValue("ret") == 1) {
-                        JSONObject retData = json.getJSONObject("data");
-                        saveWelcomeImage(retData.getString("welcome_image"), retData.getIntValue("welcome_wait"));
-                        checkUpdateLists(retData.getJSONArray("uplists"), 0, false);
-                    }
-                }
-
-                @Override
-                public void error(String error) {
-
-                }
-
-                @Override
-                public void complete() {
-
-                }
-            });
-            //启动图缓存
+        /**
+         * 加载启动图
+         * @param activity
+         * @return
+         */
+        public static int welcome(Activity activity) {
             String welcome_image = weiuiCommon.getCachesString(weiui.getApplication(), "main", "welcome_image");
             if (welcome_image.isEmpty()) {
                 return 0;
@@ -320,6 +293,45 @@ public class Base {
             new Handler().postDelayed(() -> fillload.post(() -> fillload.setVisibility(View.VISIBLE)), welcome_wait);
             //
             return welcome_wait;
+        }
+
+        /**
+         * 云数据
+         */
+        public static void appData() {
+            String appkey = config.getString("appKey");
+            if (appkey.length() == 0) {
+                return;
+            }
+            //读取云配置
+            Map<String, Object> data = new HashMap<>();
+            data.put("appkey", appkey);
+            data.put("version", weiuiCommon.getLocalVersion(weiui.getApplication()));
+            data.put("versionName", weiuiCommon.getLocalVersionName(weiui.getApplication()));
+            data.put("screenWidth", ScreenUtils.getScreenWidth());
+            data.put("screenHeight", ScreenUtils.getScreenHeight());
+            data.put("debug", BuildConfig.DEBUG ? 1 : 0);
+            weiuiIhttp.get("main", apiUrl + "api/client/app", data, new weiuiIhttp.ResultCallback() {
+                @Override
+                public void success(String resData, boolean isCache) {
+                    JSONObject json = weiuiJson.parseObject(resData);
+                    if (json.getIntValue("ret") == 1) {
+                        JSONObject retData = json.getJSONObject("data");
+                        saveWelcomeImage(retData.getString("welcome_image"), retData.getIntValue("welcome_wait"));
+                        checkUpdateLists(retData.getJSONArray("uplists"), 0, false);
+                    }
+                }
+
+                @Override
+                public void error(String error) {
+
+                }
+
+                @Override
+                public void complete() {
+
+                }
+            });
         }
 
         /**
@@ -440,6 +452,7 @@ public class Base {
             if (intent != null) {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 lastActivity.startActivity(intent);
+                lastActivity.finish();
             }
         }
     }
