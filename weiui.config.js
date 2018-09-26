@@ -1,11 +1,13 @@
+/**
+ * 配置文件
+ * 参数详细说明：http://weiui.cc/#/start/config
+ */
 module.exports = {
 
-    homePage: "",   //主页的JS地址（build使用，留空自动生成）
+    homePage: "",
+    appKey: "3TRWyttKzxRBtmHc004sJMjjyAxOf08l",
 
-    appkey: "3TRWyttKzxRBtmHc004sJMjjyAxOf08l",     //（可选）用于云平台管理
-    version: "1.0.0",                               //（可选）用于云平台热更新
-
-    rongim: {       //融云模块配置
+    rongim: {
         ios: {
             enabled: false,
             appKey: "",
@@ -18,7 +20,7 @@ module.exports = {
         },
     },
 
-    umeng: {        //友盟模块配置
+    umeng: {
         ios: {
             enabled: false,
             appKey: "",

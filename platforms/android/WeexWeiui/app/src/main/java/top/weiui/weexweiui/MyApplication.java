@@ -12,7 +12,6 @@ import com.taobao.weex.WXSDKEngine;
 
 import io.rong.imlib.weiui.ui.weiui_rongim;
 import vip.kuaifan.weiui.extend.module.weiui;
-import vip.kuaifan.weiui.extend.module.weiuiCommon;
 import vip.kuaifan.weiui.extend.module.weiuiJson;
 import vip.kuaifan.weiui.umeng.ui.weiui_umeng;
 
@@ -29,19 +28,26 @@ public class MyApplication extends Application {
         //
         WXEnvironment.setOpenDebugLog(true);
         WXEnvironment.setApkDebugable(true);
-        WXSDKEngine.addCustomOptions("appName", "WEIUI");
-        WXSDKEngine.addCustomOptions("appGroup", "WEIUI");
+        WXSDKEngine.addCustomOptions("appName", Base.appName);
+        WXSDKEngine.addCustomOptions("appGroup", Base.appGroup);
         //
         weiui.init(this);
         weiui_citypicker.init();
         weiui_picture.init();
         //
-        JSONObject jsonData = weiuiJson.parseObject(weiuiCommon.getAssetsJson("weiui/config.json", this));
-        JSONObject rongim = weiuiJson.parseObject(weiuiJson.parseObject(jsonData.get("rongim")).get("android"));
+        initRongim();
+        initUmeng();
+    }
+
+    private void initRongim() {
+        JSONObject rongim = weiuiJson.parseObject(Base.config.getObject("rongim").get("android"));
         if (weiuiJson.getBoolean(rongim, "enabled")) {
             weiui_rongim.init(weiuiJson.getString(rongim, "appKey"), weiuiJson.getString(rongim, "appSecret"));
         }
-        JSONObject umeng = weiuiJson.parseObject(weiuiJson.parseObject(jsonData.get("umeng")).get("android"));
+    }
+
+    private void initUmeng() {
+        JSONObject umeng = weiuiJson.parseObject(Base.config.getObject("umeng").get("android"));
         if (weiuiJson.getBoolean(umeng, "enabled")) {
             weiui_umeng.init(weiuiJson.getString(umeng, "appKey"), weiuiJson.getString(umeng, "appSecret"), weiuiJson.getString(umeng, "channel"));
         }
