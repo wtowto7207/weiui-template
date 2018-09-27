@@ -289,7 +289,6 @@
 		B2242D5821345148001C951B /* WXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = B2242BCD21345148001C951B /* WXLog.m */; };
 		B2242D5921345148001C951B /* NSObject+WXSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = B2242BD021345148001C951B /* NSObject+WXSwizzle.m */; };
 		B2242D5A21345148001C951B /* native-bundle-main.js in Resources */ = {isa = PBXBuildFile; fileRef = B2242BD121345148001C951B /* native-bundle-main.js */; };
-		B2242D5B21345148001C951B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2242BD221345148001C951B /* Info.plist */; };
 		B2242D5C21345148001C951B /* TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B2242BD621345148001C951B /* TBCityIconFont.m */; };
 		B2242D5D21345148001C951B /* TBCityIconInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B2242BD721345148001C951B /* TBCityIconInfo.m */; };
 		B2242D5E21345148001C951B /* UIImage+TBCityIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = B2242BD821345148001C951B /* UIImage+TBCityIconFont.m */; };
@@ -360,6 +359,7 @@
 		B2242D9F21345149001C951B /* RCConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B2242C5E21345148001C951B /* RCConfig.plist */; };
 		B2242DA021345149001C951B /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2242C5F21345148001C951B /* release_notes_ios.txt */; };
 		B2242DA421345394001C951B /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = B2242DA321345394001C951B /* city.json */; };
+		B238CF9E215C85E500E5D4CB /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CF9D215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.m */; };
 		B25A71EA21257A0500AA0AB9 /* bundlejs in Resources */ = {isa = PBXBuildFile; fileRef = B25A71E921257A0500AA0AB9 /* bundlejs */; };
 		B25A71EF21262E3A00AA0AB9 /* MNAssistiveBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = B25A71EE21262E3A00AA0AB9 /* MNAssistiveBtn.m */; };
 /* End PBXBuildFile section */
@@ -1068,6 +1068,8 @@
 		B2242C5E21345148001C951B /* RCConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RCConfig.plist; sourceTree = "<group>"; };
 		B2242C5F21345148001C951B /* release_notes_ios.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes_ios.txt; sourceTree = "<group>"; };
 		B2242DA321345394001C951B /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = city.json; path = ../../../../../../plugins/android/weiui_citypicker/src/main/assets/city.json; sourceTree = "<group>"; };
+		B238CF9C215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		B238CF9D215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		B25A71E921257A0500AA0AB9 /* bundlejs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundlejs; sourceTree = "<group>"; };
 		B25A71ED21262E3A00AA0AB9 /* MNAssistiveBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNAssistiveBtn.h; sourceTree = "<group>"; };
 		B25A71EE21262E3A00AA0AB9 /* MNAssistiveBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNAssistiveBtn.m; sourceTree = "<group>"; };
@@ -1310,6 +1312,7 @@
 			children = (
 				B22429ED21345147001C951B /* TriangleIndicatorView.h */,
 				B22429EE21345147001C951B /* DeviceUtil.h */,
+				B238CF9B215C85E400E5D4CB /* FDFullscreenPopGesture */,
 				B22429EF21345147001C951B /* Umeng */,
 				B2242A0021345147001C951B /* MMDrawerController */,
 				B2242A0A21345147001C951B /* MJRefresh */,
@@ -2380,6 +2383,15 @@
 			path = IMLib;
 			sourceTree = "<group>";
 		};
+		B238CF9B215C85E400E5D4CB /* FDFullscreenPopGesture */ = {
+			isa = PBXGroup;
+			children = (
+				B238CF9C215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.h */,
+				B238CF9D215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.m */,
+			);
+			path = FDFullscreenPopGesture;
+			sourceTree = "<group>";
+		};
 		B25A71EB21257A0900AA0AB9 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2546,7 +2558,6 @@
 				B2242D7221345149001C951B /* UIBarButtonItemArrowRight@2x.png in Resources */,
 				B213563D2124046000EDD991 /* Assets.xcassets in Resources */,
 				B2242CD421345148001C951B /* TZImagePickerController.bundle in Resources */,
-				B2242D5B21345148001C951B /* Info.plist in Resources */,
 				B2242D7321345149001C951B /* PlayButtonOverlayLarge.png in Resources */,
 				B2242CDC21345148001C951B /* wx_load_error@3x.png in Resources */,
 				B2242D7D21345149001C951B /* IQKeyboardManager.bundle in Resources */,
@@ -2609,6 +2620,7 @@
 				B2242D9221345149001C951B /* UIImage+GIF.m in Sources */,
 				B2242D7421345149001C951B /* UIImage+ZLGIF.m in Sources */,
 				B2242D5F21345149001C951B /* IconFontUtil.m in Sources */,
+				B238CF9E215C85E500E5D4CB /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				B2242C7D21345148001C951B /* WeiuiTabbarComponent.m in Sources */,
 				B2242C9C21345148001C951B /* MJRefreshBackStateFooter.m in Sources */,
 				B2242D2721345148001C951B /* WXRootViewController.m in Sources */,

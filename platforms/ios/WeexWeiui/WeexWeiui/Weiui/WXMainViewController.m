@@ -9,6 +9,7 @@
 #import "WXMainViewController.h"
 #import "WeexSDK.h"
 #import "WeexSDKManager.h"
+#import "UINavigationController+FDFullscreenPopGesture.h"
 
 #define kCacheUrl @"cache_url"
 #define kCacheTime @"cache_time"
@@ -34,6 +35,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setFd_prefersNavigationBarHidden:YES];
+    if (_isDisSwipeBack) {
+        [self setFd_interactivePopDisabled:YES];
+    }
+    
     [self.view setClipsToBounds:YES];
     
     _weexHeight = self.view.frame.size.height - CGRectGetMaxY(self.navigationController.navigationBar.frame);
@@ -222,19 +228,19 @@
 
 - (void)setupNaviBar
 {
-    UIScreenEdgePanGestureRecognizer *edgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanGesture:)];
-    edgePanGestureRecognizer.delegate = self;
-    edgePanGestureRecognizer.edges = UIRectEdgeLeft;
-    [self.view addGestureRecognizer:edgePanGestureRecognizer];
-    
-    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
-    if ([[ver objectAtIndex:0] intValue] >= 7) {
-        // iOS 7.0 or later
-        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.71 blue:0.94 alpha:1];
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-        self.navigationController.navigationBar.translucent = NO;
-    }
+//    UIScreenEdgePanGestureRecognizer *edgePanGestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(edgePanGesture:)];
+//    edgePanGestureRecognizer.delegate = self;
+//    edgePanGestureRecognizer.edges = UIRectEdgeLeft;
+//    [self.view addGestureRecognizer:edgePanGestureRecognizer];
+//
+//    NSArray *ver = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
+//    if ([[ver objectAtIndex:0] intValue] >= 7) {
+//        // iOS 7.0 or later
+//        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.27 green:0.71 blue:0.94 alpha:1];
+//        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//        self.navigationController.navigationBar.translucent = NO;
+//    }
     
     //backBarItem
     //    UIImage *backImg = [UIImage iconWithInfo:TBCityIconInfoMake([IconFontUtil iconFont:@"android-arrow-back"], 19, [UIColor whiteColor])];
@@ -416,16 +422,16 @@
 }
 
 #pragma mark action
-- (void)edgePanGesture:(UIScreenEdgePanGestureRecognizer*)edgePanGestureRecognizer
-{
-    if (self.navigationController && [self.navigationController.viewControllers count] == 1) {
-        return;
-    }
-    
-    if (!_isDisSwipeBack) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
+//- (void)edgePanGesture:(UIScreenEdgePanGestureRecognizer*)edgePanGestureRecognizer
+//{
+//    if (self.navigationController && [self.navigationController.viewControllers count] == 1) {
+//        return;
+//    }
+//
+//    if (!_isDisSwipeBack) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//}
 
 - (void)stopLoading
 {
