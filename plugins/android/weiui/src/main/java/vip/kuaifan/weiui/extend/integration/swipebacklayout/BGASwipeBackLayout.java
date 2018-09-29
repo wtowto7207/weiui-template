@@ -17,9 +17,11 @@
 
 package vip.kuaifan.weiui.extend.integration.swipebacklayout;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -32,10 +34,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.FloatRange;
-import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.os.ParcelableCompat;
 import android.support.v4.os.ParcelableCompatCreatorCallbacks;
@@ -53,6 +55,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -215,12 +218,9 @@ public class BGASwipeBackLayout extends ViewGroup {
      * 是否正在滑动
      */
     private boolean mIsSliding;
-    //===========================新增END=======================
 
     /**
      * 将该滑动返回控件添加到 Activity 上
-     *
-     * @param activity
      */
     void attachToActivity(Activity activity) {
         mActivity = activity;
@@ -240,8 +240,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置滑动返回是否可用。默认值为 true
-     *
-     * @param swipeBackEnable
      */
     void setSwipeBackEnable(boolean swipeBackEnable) {
         mSwipeBackEnable = swipeBackEnable;
@@ -249,8 +247,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置是否仅仅跟踪左侧边缘的滑动返回。默认值为 true
-     *
-     * @param isOnlyTrackingLeftEdge
      */
     void setIsOnlyTrackingLeftEdge(boolean isOnlyTrackingLeftEdge) {
         mIsOnlyTrackingLeftEdge = isOnlyTrackingLeftEdge;
@@ -274,8 +270,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置底部导航条是否悬浮在内容上
-     *
-     * @param overlap
      */
     void setIsNavigationBarOverlap(boolean overlap) {
         mIsNavigationBarOverlap = overlap;
@@ -283,8 +277,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 是否正在滑动
-     *
-     * @return
      */
     boolean isSliding() {
         return this.mIsSliding;
@@ -292,8 +284,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 滑动返回是否可用
-     *
-     * @return
      */
     private boolean isSwipeBackEnable() {
         return mSwipeBackEnable && BGASwipeBackManager.getInstance().isSwipeBackEnable();
@@ -301,8 +291,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置阴影资源 id
-     *
-     * @param shadowResId
      */
     void setShadowResId(@DrawableRes int shadowResId) {
         mShadowView.setShadowResId(shadowResId);
@@ -310,8 +298,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置是否显示滑动返回的阴影效果
-     *
-     * @param isNeedShowShadow
      */
     void setIsNeedShowShadow(boolean isNeedShowShadow) {
         mShadowView.setIsNeedShowShadow(isNeedShowShadow);
@@ -319,8 +305,6 @@ public class BGASwipeBackLayout extends ViewGroup {
 
     /**
      * 设置阴影区域的透明度是否根据滑动的距离渐变
-     *
-     * @param isShadowAlphaGradient
      */
     void setIsShadowAlphaGradient(boolean isShadowAlphaGradient) {
         mShadowView.setIsShadowAlphaGradient(isShadowAlphaGradient);
@@ -587,6 +571,7 @@ public class BGASwipeBackLayout extends ViewGroup {
         mPostedRunnables.clear();
     }
 
+    @SuppressLint("Range")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -1174,7 +1159,7 @@ public class BGASwipeBackLayout extends ViewGroup {
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
         boolean result;
-        final int save = canvas.save(Canvas.CLIP_SAVE_FLAG);
+        final int save = canvas.save();
 
         if (mCanSlide && !lp.slideable && mSlideableView != null) {
             // Clip against the slider; no sense drawing what will immediately be covered.
