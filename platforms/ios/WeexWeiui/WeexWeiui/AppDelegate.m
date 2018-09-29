@@ -6,6 +6,8 @@
 //
 
 #import "AppDelegate.h"
+#import "WeexSDKManager.h"
+#import "WeiuiRongcloudManager.h"
 #import "MNAssistiveBtn.h"
 #import "ViewController.h"
 #import "WeiuiStorageManager.h"
@@ -14,6 +16,8 @@
 #import "scanViewController.h"
 #import "DeviceUtil.h"
 #import <SocketRocket/SRWebSocket.h>
+#import "Config.h"
+#import "Cloud.h"
 
 @interface AppDelegate ()<SRWebSocketDelegate>
 
@@ -29,8 +33,10 @@ MNAssistiveBtn *debugBtn;
 NSString *socketHost;
 NSString *socketPort;
 NSTimeInterval reconnectionNumber;
+NSDictionary *appLaunchOptions;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    appLaunchOptions = launchOptions;
     
     #if DEBUG
     vController = [[ViewController alloc]init];
@@ -46,7 +52,11 @@ NSTimeInterval reconnectionNumber;
     });
     #endif
     
-    [self initUmeng:launchOptions];
+    [Cloud welcome:self.window];
+    
+    [self initRongcloud];
+    [self initUmeng];
+    
     return YES;
 }
 
@@ -76,6 +86,33 @@ NSTimeInterval reconnectionNumber;
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//初始化融云
+- (void)initRongcloud {
+    NSMutableDictionary *rongim = [[Config getObject:@"rongim"] objectForKey:@"ios"];
+    NSString *enabled = [NSString stringWithFormat:@"%@", rongim[@"enabled"]];
+    //
+    if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
+        NSString *appKey = [NSString stringWithFormat:@"%@", rongim[@"appKey"]];
+        NSString *appSecret = [NSString stringWithFormat:@"%@", rongim[@"appSecret"]];
+        [WeexSDKManager sharedIntstance].rongKey = appKey;
+        [WeexSDKManager sharedIntstance].rongSec = appSecret;
+        [[WeiuiRongcloudManager sharedIntstance] init:appKey appSecret:appSecret];
+    }
+}
+
+//初始化友盟
+- (void)initUmeng {
+    NSMutableDictionary *umeng = [[Config getObject:@"umeng"] objectForKey:@"ios"];
+    NSString *enabled = [NSString stringWithFormat:@"%@", umeng[@"enabled"]];
+    //
+    if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
+        NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
+        NSString *appSecret = [NSString stringWithFormat:@"%@", umeng[@"appSecret"]];
+        NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
+        [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:appLaunchOptions];
+    }
+}
+
 //获取中间字符串
 - (NSString *) getMiddle:(NSString *)string start:(NSString *)startString to:(NSString *)endString {
     NSString *text = string;
@@ -92,23 +129,6 @@ NSTimeInterval reconnectionNumber;
         }
     }
     return text;
-}
-
-//初始化友盟
-- (void)initUmeng:(NSDictionary *)launchOptions {
-    NSString *filePath = [[ NSBundle mainBundle ] pathForResource : @"bundlejs/weiui/config" ofType : @"json" ];
-    NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
-    NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
-    NSMutableDictionary *umeng = [[jsonData objectForKey:@"umeng"] objectForKey:@"ios"];
-    NSString *enabled = [NSString stringWithFormat:@"%@", umeng[@"enabled"]];
-    //
-    if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
-        NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
-        NSString *appSecret = [NSString stringWithFormat:@"%@", umeng[@"appSecret"]];
-        NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
-        [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:launchOptions];
-    }
 }
 
 //添加悬浮按钮
@@ -149,6 +169,14 @@ NSTimeInterval reconnectionNumber;
     [alertController addAction:[UIAlertAction actionWithTitle:@"刷新" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self refresh];
     }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"重启APP" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self rebootConfirm];
+    }]];
+    if ([Config isConfigDataIsDist]) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"清除热更新数据" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [Cloud clear];
+        }]];
+    }
     
     [self.window.rootViewController presentViewController:alertController animated:TRUE completion:nil];
 }
@@ -228,14 +256,33 @@ NSTimeInterval reconnectionNumber;
     [[WeiuiNewPageManager sharedIntstance] reloadPage:nil];
 }
 
+//确认重启APP
+- (void) rebootConfirm {
+    UIAlertController * alertController = [UIAlertController
+                                           alertControllerWithTitle: @"热重启APP"
+                                           message: @"确认要关闭所有页面热重启APP吗？"
+                                           preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [Cloud reboot];
+        [Cloud appData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([Cloud welcome:self.window] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [Cloud welcomeClose];
+        });
+        [self initRongcloud];
+        [self initUmeng];
+    }]];
+    UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    alertWindow.rootViewController = [[UIViewController alloc] init];
+    alertWindow.windowLevel = UIWindowLevelAlert + 1;
+    [alertWindow makeKeyAndVisible];
+    [alertWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
+
 //获取socket地址及端口
 - (void) setSocketData {
-    NSString *filePath = [[ NSBundle mainBundle ] pathForResource : @"bundlejs/weiui/config" ofType : @"json" ];
-    NSData *fileData = [[ NSData alloc ] initWithContentsOfFile :filePath];
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:fileData options:kNilOptions error:nil];
-    NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:jsonObject];
-    socketHost = [NSString stringWithFormat:@"%@", jsonData[@"socketHost"]];
-    socketPort = [NSString stringWithFormat:@"%@", jsonData[@"socketPort"]];
+    socketHost = [Config getString:@"socketHost"];
+    socketPort = [Config getString:@"socketHost"];
 }
 
 //开始请求连接

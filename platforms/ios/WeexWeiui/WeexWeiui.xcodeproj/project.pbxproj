@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		532E406F594B06E77A17129D /* libPods-WeexWeiui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4738D867E50FB2D943A92A /* libPods-WeexWeiui.a */; };
+		B2056245215F453F0020E459 /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = B2056244215F453F0020E459 /* Debug.m */; };
 		B21356352124045E00EDD991 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B21356342124045E00EDD991 /* AppDelegate.m */; };
 		B21356382124045E00EDD991 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B21356372124045E00EDD991 /* ViewController.m */; };
 		B213563B2124045E00EDD991 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21356392124045E00EDD991 /* Main.storyboard */; };
@@ -360,6 +361,26 @@
 		B2242DA021345149001C951B /* release_notes_ios.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2242C5F21345148001C951B /* release_notes_ios.txt */; };
 		B2242DA421345394001C951B /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = B2242DA321345394001C951B /* city.json */; };
 		B238CF9E215C85E500E5D4CB /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CF9D215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.m */; };
+		B238CFAD215CC7E100E5D4CB /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CFAC215CC7E100E5D4CB /* Config.m */; };
+		B238CFB0215CFB3100E5D4CB /* Update.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CFAF215CFB3000E5D4CB /* Update.m */; };
+		B238CFB3215CFB4200E5D4CB /* Cloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CFB2215CFB4200E5D4CB /* Cloud.m */; };
+		B238CFE6215E29F400E5D4CB /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFBF215E29F400E5D4CB /* crypt.c */; };
+		B238CFE7215E29F400E5D4CB /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFC0215E29F400E5D4CB /* unzip.c */; };
+		B238CFE8215E29F400E5D4CB /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFC1215E29F400E5D4CB /* zip.c */; };
+		B238CFE9215E29F400E5D4CB /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFC3215E29F400E5D4CB /* ioapi.c */; };
+		B238CFEA215E29F400E5D4CB /* ioapi_buf.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFC5215E29F400E5D4CB /* ioapi_buf.c */; };
+		B238CFEB215E29F400E5D4CB /* ioapi_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFC9215E29F400E5D4CB /* ioapi_mem.c */; };
+		B238CFEC215E29F400E5D4CB /* minishared.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFCA215E29F400E5D4CB /* minishared.c */; };
+		B238CFED215E29F400E5D4CB /* aeskey.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFD0215E29F400E5D4CB /* aeskey.c */; };
+		B238CFEE215E29F400E5D4CB /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFD1215E29F400E5D4CB /* hmac.c */; };
+		B238CFEF215E29F400E5D4CB /* aescrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFD4215E29F400E5D4CB /* aescrypt.c */; };
+		B238CFF0215E29F400E5D4CB /* fileenc.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFD5215E29F400E5D4CB /* fileenc.c */; };
+		B238CFF1215E29F400E5D4CB /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFD7215E29F400E5D4CB /* sha1.c */; };
+		B238CFF2215E29F400E5D4CB /* aes_ni.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFDA215E29F400E5D4CB /* aes_ni.c */; };
+		B238CFF3215E29F400E5D4CB /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFDC215E29F400E5D4CB /* prng.c */; };
+		B238CFF4215E29F400E5D4CB /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFDE215E29F400E5D4CB /* pwd2key.c */; };
+		B238CFF5215E29F400E5D4CB /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = B238CFDF215E29F400E5D4CB /* aestab.c */; };
+		B238CFF6215E29F400E5D4CB /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = B238CFE4215E29F400E5D4CB /* SSZipArchive.m */; };
 		B25A71EA21257A0500AA0AB9 /* bundlejs in Resources */ = {isa = PBXBuildFile; fileRef = B25A71E921257A0500AA0AB9 /* bundlejs */; };
 		B25A71EF21262E3A00AA0AB9 /* MNAssistiveBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = B25A71EE21262E3A00AA0AB9 /* MNAssistiveBtn.m */; };
 /* End PBXBuildFile section */
@@ -384,6 +405,8 @@
 /* Begin PBXFileReference section */
 		21618EA4FE8A980870624E1A /* libPods-WeexWeiuiUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeexWeiuiUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B7109449833C8668CA8EA08 /* Pods-WeexWeiui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeexWeiui.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeexWeiui/Pods-WeexWeiui.debug.xcconfig"; sourceTree = "<group>"; };
+		B2056243215F453F0020E459 /* Debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
+		B2056244215F453F0020E459 /* Debug.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
 		B21356302124045E00EDD991 /* WeexWeiui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeexWeiui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21356332124045E00EDD991 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B21356342124045E00EDD991 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1070,6 +1093,51 @@
 		B2242DA321345394001C951B /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = city.json; path = ../../../../../../plugins/android/weiui_citypicker/src/main/assets/city.json; sourceTree = "<group>"; };
 		B238CF9C215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		B238CF9D215C85E400E5D4CB /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
+		B238CFAB215CC7E100E5D4CB /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		B238CFAC215CC7E100E5D4CB /* Config.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		B238CFAE215CFB3000E5D4CB /* Update.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Update.h; sourceTree = "<group>"; };
+		B238CFAF215CFB3000E5D4CB /* Update.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Update.m; sourceTree = "<group>"; };
+		B238CFB1215CFB4200E5D4CB /* Cloud.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cloud.h; sourceTree = "<group>"; };
+		B238CFB2215CFB4200E5D4CB /* Cloud.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Cloud.m; sourceTree = "<group>"; };
+		B238CFBD215E29F400E5D4CB /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
+		B238CFBF215E29F400E5D4CB /* crypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crypt.c; sourceTree = "<group>"; };
+		B238CFC0215E29F400E5D4CB /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		B238CFC1215E29F400E5D4CB /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		B238CFC2215E29F400E5D4CB /* minishared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = minishared.h; sourceTree = "<group>"; };
+		B238CFC3215E29F400E5D4CB /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		B238CFC4215E29F400E5D4CB /* ioapi_mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi_mem.h; sourceTree = "<group>"; };
+		B238CFC5215E29F400E5D4CB /* ioapi_buf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi_buf.c; sourceTree = "<group>"; };
+		B238CFC6215E29F400E5D4CB /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		B238CFC7215E29F400E5D4CB /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		B238CFC8215E29F400E5D4CB /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		B238CFC9215E29F400E5D4CB /* ioapi_mem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi_mem.c; sourceTree = "<group>"; };
+		B238CFCA215E29F400E5D4CB /* minishared.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = minishared.c; sourceTree = "<group>"; };
+		B238CFCB215E29F400E5D4CB /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		B238CFCC215E29F400E5D4CB /* ioapi_buf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi_buf.h; sourceTree = "<group>"; };
+		B238CFCE215E29F400E5D4CB /* prng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = prng.h; sourceTree = "<group>"; };
+		B238CFCF215E29F400E5D4CB /* aes_ni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes_ni.h; sourceTree = "<group>"; };
+		B238CFD0215E29F400E5D4CB /* aeskey.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aeskey.c; sourceTree = "<group>"; };
+		B238CFD1215E29F400E5D4CB /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		B238CFD2215E29F400E5D4CB /* aestab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aestab.h; sourceTree = "<group>"; };
+		B238CFD3215E29F400E5D4CB /* pwd2key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pwd2key.h; sourceTree = "<group>"; };
+		B238CFD4215E29F400E5D4CB /* aescrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aescrypt.c; sourceTree = "<group>"; };
+		B238CFD5215E29F400E5D4CB /* fileenc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fileenc.c; sourceTree = "<group>"; };
+		B238CFD6215E29F400E5D4CB /* aesopt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aesopt.h; sourceTree = "<group>"; };
+		B238CFD7215E29F400E5D4CB /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		B238CFD8215E29F400E5D4CB /* brg_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_types.h; sourceTree = "<group>"; };
+		B238CFD9215E29F400E5D4CB /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		B238CFDA215E29F400E5D4CB /* aes_ni.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aes_ni.c; sourceTree = "<group>"; };
+		B238CFDB215E29F400E5D4CB /* brg_endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brg_endian.h; sourceTree = "<group>"; };
+		B238CFDC215E29F400E5D4CB /* prng.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = prng.c; sourceTree = "<group>"; };
+		B238CFDD215E29F400E5D4CB /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		B238CFDE215E29F400E5D4CB /* pwd2key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pwd2key.c; sourceTree = "<group>"; };
+		B238CFDF215E29F400E5D4CB /* aestab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = aestab.c; sourceTree = "<group>"; };
+		B238CFE0215E29F400E5D4CB /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		B238CFE1215E29F400E5D4CB /* fileenc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileenc.h; sourceTree = "<group>"; };
+		B238CFE2215E29F400E5D4CB /* SSZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipArchive.h; sourceTree = "<group>"; };
+		B238CFE3215E29F400E5D4CB /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
+		B238CFE4215E29F400E5D4CB /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
+		B238CFE5215E29F400E5D4CB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B25A71E921257A0500AA0AB9 /* bundlejs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundlejs; sourceTree = "<group>"; };
 		B25A71ED21262E3A00AA0AB9 /* MNAssistiveBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNAssistiveBtn.h; sourceTree = "<group>"; };
 		B25A71EE21262E3A00AA0AB9 /* MNAssistiveBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNAssistiveBtn.m; sourceTree = "<group>"; };
@@ -1171,12 +1239,13 @@
 				B21356332124045E00EDD991 /* AppDelegate.h */,
 				B21356342124045E00EDD991 /* AppDelegate.m */,
 				B213563C2124046000EDD991 /* Assets.xcassets */,
-				B21356412124046000EDD991 /* Info.plist */,
 				B213563E2124046000EDD991 /* LaunchScreen.storyboard */,
 				B21356422124046000EDD991 /* main.m */,
 				B21356392124045E00EDD991 /* Main.storyboard */,
 				B21356362124045E00EDD991 /* ViewController.h */,
 				B21356372124045E00EDD991 /* ViewController.m */,
+				B21356412124046000EDD991 /* Info.plist */,
+				B238CFA7215CC77F00E5D4CB /* Base */,
 				B25A71EC21262E3A00AA0AB9 /* MNAssistiveBtn */,
 				B224299421345147001C951B /* Weiui */,
 			);
@@ -1312,6 +1381,7 @@
 			children = (
 				B22429ED21345147001C951B /* TriangleIndicatorView.h */,
 				B22429EE21345147001C951B /* DeviceUtil.h */,
+				B238CFBC215E29F400E5D4CB /* SSZipArchive */,
 				B238CF9B215C85E400E5D4CB /* FDFullscreenPopGesture */,
 				B22429EF21345147001C951B /* Umeng */,
 				B2242A0021345147001C951B /* MMDrawerController */,
@@ -2392,6 +2462,83 @@
 			path = FDFullscreenPopGesture;
 			sourceTree = "<group>";
 		};
+		B238CFA7215CC77F00E5D4CB /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B238CFAB215CC7E100E5D4CB /* Config.h */,
+				B238CFAC215CC7E100E5D4CB /* Config.m */,
+				B238CFAE215CFB3000E5D4CB /* Update.h */,
+				B238CFAF215CFB3000E5D4CB /* Update.m */,
+				B238CFB1215CFB4200E5D4CB /* Cloud.h */,
+				B238CFB2215CFB4200E5D4CB /* Cloud.m */,
+				B2056243215F453F0020E459 /* Debug.h */,
+				B2056244215F453F0020E459 /* Debug.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B238CFBC215E29F400E5D4CB /* SSZipArchive */ = {
+			isa = PBXGroup;
+			children = (
+				B238CFBD215E29F400E5D4CB /* ZipArchive.h */,
+				B238CFBE215E29F400E5D4CB /* minizip */,
+				B238CFE2215E29F400E5D4CB /* SSZipArchive.h */,
+				B238CFE3215E29F400E5D4CB /* SSZipCommon.h */,
+				B238CFE4215E29F400E5D4CB /* SSZipArchive.m */,
+				B238CFE5215E29F400E5D4CB /* Info.plist */,
+			);
+			path = SSZipArchive;
+			sourceTree = "<group>";
+		};
+		B238CFBE215E29F400E5D4CB /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				B238CFBF215E29F400E5D4CB /* crypt.c */,
+				B238CFC0215E29F400E5D4CB /* unzip.c */,
+				B238CFC1215E29F400E5D4CB /* zip.c */,
+				B238CFC2215E29F400E5D4CB /* minishared.h */,
+				B238CFC3215E29F400E5D4CB /* ioapi.c */,
+				B238CFC4215E29F400E5D4CB /* ioapi_mem.h */,
+				B238CFC5215E29F400E5D4CB /* ioapi_buf.c */,
+				B238CFC6215E29F400E5D4CB /* crypt.h */,
+				B238CFC7215E29F400E5D4CB /* zip.h */,
+				B238CFC8215E29F400E5D4CB /* unzip.h */,
+				B238CFC9215E29F400E5D4CB /* ioapi_mem.c */,
+				B238CFCA215E29F400E5D4CB /* minishared.c */,
+				B238CFCB215E29F400E5D4CB /* ioapi.h */,
+				B238CFCC215E29F400E5D4CB /* ioapi_buf.h */,
+				B238CFCD215E29F400E5D4CB /* aes */,
+			);
+			path = minizip;
+			sourceTree = "<group>";
+		};
+		B238CFCD215E29F400E5D4CB /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				B238CFCE215E29F400E5D4CB /* prng.h */,
+				B238CFCF215E29F400E5D4CB /* aes_ni.h */,
+				B238CFD0215E29F400E5D4CB /* aeskey.c */,
+				B238CFD1215E29F400E5D4CB /* hmac.c */,
+				B238CFD2215E29F400E5D4CB /* aestab.h */,
+				B238CFD3215E29F400E5D4CB /* pwd2key.h */,
+				B238CFD4215E29F400E5D4CB /* aescrypt.c */,
+				B238CFD5215E29F400E5D4CB /* fileenc.c */,
+				B238CFD6215E29F400E5D4CB /* aesopt.h */,
+				B238CFD7215E29F400E5D4CB /* sha1.c */,
+				B238CFD8215E29F400E5D4CB /* brg_types.h */,
+				B238CFD9215E29F400E5D4CB /* hmac.h */,
+				B238CFDA215E29F400E5D4CB /* aes_ni.c */,
+				B238CFDB215E29F400E5D4CB /* brg_endian.h */,
+				B238CFDC215E29F400E5D4CB /* prng.c */,
+				B238CFDD215E29F400E5D4CB /* aes.h */,
+				B238CFDE215E29F400E5D4CB /* pwd2key.c */,
+				B238CFDF215E29F400E5D4CB /* aestab.c */,
+				B238CFE0215E29F400E5D4CB /* sha1.h */,
+				B238CFE1215E29F400E5D4CB /* fileenc.h */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
 		B25A71EB21257A0900AA0AB9 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2652,12 +2799,14 @@
 				B2242CA221345148001C951B /* MJRefreshStateHeader.m in Sources */,
 				B2242CEC21345148001C951B /* WXVoiceOverModule.m in Sources */,
 				B2242CA721345148001C951B /* MJRefreshAutoFooter.m in Sources */,
+				B238CFED215E29F400E5D4CB /* aeskey.c in Sources */,
 				B2242C6C21345148001C951B /* WeiuiToastManager.m in Sources */,
 				B2242D4E21345148001C951B /* WXWeakObjectWrapper.m in Sources */,
 				B2242C7221345148001C951B /* WeiuiUmengManager.m in Sources */,
 				B2242CFC21345148001C951B /* WXClipboardModule.m in Sources */,
 				B2242CF821345148001C951B /* WXAnimationModule.m in Sources */,
 				B2242C7721345148001C951B /* WeiuiNavbarItemComponent.m in Sources */,
+				B238CFF0215E29F400E5D4CB /* fileenc.c in Sources */,
 				B2242CDB21345148001C951B /* TZGifPhotoPreviewController.m in Sources */,
 				B2242CC021345148001C951B /* DGActivityIndicatorRotatingSandglassAnimation.m in Sources */,
 				B2242CF621345148001C951B /* WXPickerModule.m in Sources */,
@@ -2675,6 +2824,8 @@
 				B2242D2421345148001C951B /* WXTextComponent.m in Sources */,
 				B2242CB521345148001C951B /* DGActivityIndicatorBallRotateAnimation.m in Sources */,
 				B2242CE321345148001C951B /* WXBridgeContext.m in Sources */,
+				B238CFE9215E29F400E5D4CB /* ioapi.c in Sources */,
+				B238CFF4215E29F400E5D4CB /* pwd2key.c in Sources */,
 				B2242CB121345148001C951B /* DGActivityIndicatorTriplePulseAnimation.m in Sources */,
 				B2242C7021345148001C951B /* WeiuiCaptchaManager.m in Sources */,
 				B2242D9621345149001C951B /* SDImageCache.m in Sources */,
@@ -2694,6 +2845,7 @@
 				B2242C8321345148001C951B /* WeiuiGridComponent.m in Sources */,
 				B2242D6021345149001C951B /* TriangleIndicatorView.m in Sources */,
 				B2242D7F21345149001C951B /* IQNSArray+Sort.m in Sources */,
+				B238CFAD215CC7E100E5D4CB /* Config.m in Sources */,
 				B2242CC721345148001C951B /* DGActivityIndicatorTwoDotsAnimation.m in Sources */,
 				B2242D2321345148001C951B /* WXTextInputComponent.m in Sources */,
 				B2242CC421345148001C951B /* DGActivityIndicatorFiveDotsAnimation.m in Sources */,
@@ -2709,6 +2861,7 @@
 				B2242D8321345149001C951B /* IQUIViewController+Additions.m in Sources */,
 				B2242C9921345148001C951B /* NSBundle+MJRefresh.m in Sources */,
 				B2242CDF21345148001C951B /* WXExceptionUtils.m in Sources */,
+				B238CFB3215CFB4200E5D4CB /* Cloud.m in Sources */,
 				B2242CEE21345148001C951B /* WXPrerenderManager.m in Sources */,
 				B2242D8121345149001C951B /* IQUIScrollView+Additions.m in Sources */,
 				B2242CD821345148001C951B /* TZPhotoPreviewCell.m in Sources */,
@@ -2738,9 +2891,12 @@
 				B2242D1521345148001C951B /* WXRecyclerUpdateController.m in Sources */,
 				B2242CE121345148001C951B /* WXJSCoreBridge.m in Sources */,
 				B2242C8021345148001C951B /* WeiuiIndicatorComponent.m in Sources */,
+				B238CFF2215E29F400E5D4CB /* aes_ni.c in Sources */,
 				B2242CCD21345148001C951B /* TZImageCropManager.m in Sources */,
 				B2242CB221345148001C951B /* DGActivityIndicatorRotatingSquaresAnimation.m in Sources */,
+				B238CFF6215E29F400E5D4CB /* SSZipArchive.m in Sources */,
 				B2242D9C21345149001C951B /* NSTimer+Weiui.m in Sources */,
+				B238CFEF215E29F400E5D4CB /* aescrypt.c in Sources */,
 				B2242D4321345148001C951B /* WXInnerLayer.m in Sources */,
 				B2242CB621345148001C951B /* DGActivityIndicatorBallZigZagAnimation.m in Sources */,
 				B2242C6E21345148001C951B /* WeiuiStorageManager.m in Sources */,
@@ -2752,6 +2908,7 @@
 				B2242D5821345148001C951B /* WXLog.m in Sources */,
 				B2242D3F21345148001C951B /* WXErrorView.m in Sources */,
 				B2242CD721345148001C951B /* TZPhotoPickerController.m in Sources */,
+				B238CFEC215E29F400E5D4CB /* minishared.c in Sources */,
 				B2242C8821345148001C951B /* AppDelegate+Umeng.m in Sources */,
 				B2242D5C21345148001C951B /* TBCityIconFont.m in Sources */,
 				B2242D1421345148001C951B /* WXRecyclerDragController.m in Sources */,
@@ -2766,6 +2923,7 @@
 				B2242D4621345148001C951B /* UIBezierPath+Weex.m in Sources */,
 				B2242C7121345148001C951B /* WeiuiAdDialogManager.m in Sources */,
 				B2242D8821345149001C951B /* AFURLRequestSerialization.m in Sources */,
+				B238CFF1215E29F400E5D4CB /* sha1.c in Sources */,
 				B2242CF421345148001C951B /* WXWebViewModule.m in Sources */,
 				B21356382124045E00EDD991 /* ViewController.m in Sources */,
 				B2242CFB21345148001C951B /* WXInstanceWrap.m in Sources */,
@@ -2777,9 +2935,11 @@
 				B2242D1621345148001C951B /* WXRecyclerComponent.m in Sources */,
 				B2242D4B21345148001C951B /* WXThreadSafeMutableDictionary.m in Sources */,
 				B2242D0B21345148001C951B /* WXTransform.m in Sources */,
+				B2056245215F453F0020E459 /* Debug.m in Sources */,
 				B2242CAE21345148001C951B /* DGActivityIndicatorTripleRingsAnimation.m in Sources */,
 				B2242D0621345148001C951B /* WXLoadingIndicator.m in Sources */,
 				B2242D8D21345149001C951B /* MKAnnotationView+WebCache.m in Sources */,
+				B238CFEE215E29F400E5D4CB /* hmac.c in Sources */,
 				B2242C9621345148001C951B /* MJRefreshConst.m in Sources */,
 				B2242D0321345148001C951B /* WXEditComponent.m in Sources */,
 				B2242D3421345148001C951B /* WXTracingManager.m in Sources */,
@@ -2787,6 +2947,7 @@
 				B2242D8F21345149001C951B /* SDWebImageDecoder.m in Sources */,
 				B2242D6121345149001C951B /* DeviceUtil.m in Sources */,
 				B2242C9D21345148001C951B /* MJRefreshBackNormalFooter.m in Sources */,
+				B238CFE6215E29F400E5D4CB /* crypt.c in Sources */,
 				B2242C9121345148001C951B /* MMDrawerBarButtonItem.m in Sources */,
 				B2242CB421345148001C951B /* DGActivityIndicatorBallScaleRippleAnimation.m in Sources */,
 				B2242D0521345148001C951B /* WXFooterComponent.m in Sources */,
@@ -2820,12 +2981,15 @@
 				B2242D0D21345148001C951B /* WXWebComponent.m in Sources */,
 				B2242D6421345149001C951B /* LBXScanLineAnimation.m in Sources */,
 				B2242CFD21345148001C951B /* WXMetaModule.m in Sources */,
+				B238CFE7215E29F400E5D4CB /* unzip.c in Sources */,
 				B2242C9A21345148001C951B /* UIView+MJExtension.m in Sources */,
 				B2242D1A21345148001C951B /* WXComponent+DataBinding.mm in Sources */,
 				B2242CA421345148001C951B /* MJRefreshFooter.m in Sources */,
+				B238CFB0215CFB3100E5D4CB /* Update.m in Sources */,
 				B2242CCE21345148001C951B /* TZAssetCell.m in Sources */,
 				B2242D8521345149001C951B /* AFURLResponseSerialization.m in Sources */,
 				B2242D1021345148001C951B /* WXSwitchComponent.m in Sources */,
+				B238CFEA215E29F400E5D4CB /* ioapi_buf.c in Sources */,
 				B2242D5721345148001C951B /* WXUtility.m in Sources */,
 				B2242D5421345148001C951B /* WXDiffUtil.m in Sources */,
 				B2242D8021345149001C951B /* IQUITextFieldView+Additions.m in Sources */,
@@ -2844,6 +3008,7 @@
 				B2242C8421345148001C951B /* WeiuiScrollTextComponent.m in Sources */,
 				B2242CFF21345148001C951B /* WXResourceResponse.m in Sources */,
 				B2242C8921345148001C951B /* ImagePreviewViewController.m in Sources */,
+				B238CFEB215E29F400E5D4CB /* ioapi_mem.c in Sources */,
 				B2242CBE21345148001C951B /* DGActivityIndicatorBallClipRotateMultipleAnimation.m in Sources */,
 				B2242CFA21345148001C951B /* WXCanvasModule.m in Sources */,
 				B2242CE221345148001C951B /* WXBridgeMethod.m in Sources */,
@@ -2858,6 +3023,7 @@
 				B2242D3021345148001C951B /* WXRuleManager.m in Sources */,
 				B2242C9421345148001C951B /* MMDrawerVisualState.m in Sources */,
 				B2242D6821345149001C951B /* LBXScanNetAnimation.m in Sources */,
+				B238CFF3215E29F400E5D4CB /* prng.c in Sources */,
 				B2242CF721345148001C951B /* WXWebSocketModule.m in Sources */,
 				B2242C8221345148001C951B /* WeiuiNavbarComponent.m in Sources */,
 				B2242D2621345148001C951B /* WXCycleSliderComponent.m in Sources */,
@@ -2867,6 +3033,7 @@
 				B2242D4C21345148001C951B /* WXBoxShadow.m in Sources */,
 				B2242CB021345148001C951B /* DGActivityIndicatorBallClipRotatePulseAnimation.m in Sources */,
 				B2242D3521345148001C951B /* WXResourceLoader.m in Sources */,
+				B238CFE8215E29F400E5D4CB /* zip.c in Sources */,
 				B2242D7521345149001C951B /* ZLMediaView.m in Sources */,
 				B2242D9821345149001C951B /* NSData+ImageContentType.m in Sources */,
 				B2242CB321345148001C951B /* DGActivityIndicatorBallScaleMultipleAnimation.m in Sources */,
@@ -2876,6 +3043,7 @@
 				B2242D1F21345148001C951B /* WXCellSlotComponent.m in Sources */,
 				B2242CEB21345148001C951B /* WXModalUIModule.m in Sources */,
 				B2242D3E21345148001C951B /* WXView.m in Sources */,
+				B238CFF5215E29F400E5D4CB /* aestab.c in Sources */,
 				B2242C6921345148001C951B /* WeiuiRongcloudModule.m in Sources */,
 				B2242D0E21345148001C951B /* WXVideoComponent.m in Sources */,
 				B2242CD121345148001C951B /* NSBundle+TZImagePicker.m in Sources */,

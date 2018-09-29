@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.taobao.weex.bridge.JSCallback;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,9 +38,11 @@ import vip.kuaifan.weiui.extend.module.utilcode.util.FileUtils;
 import vip.kuaifan.weiui.extend.module.utilcode.util.ScreenUtils;
 import vip.kuaifan.weiui.extend.module.utilcode.util.TimeUtils;
 import vip.kuaifan.weiui.extend.module.utilcode.util.ZipUtils;
+import vip.kuaifan.weiui.extend.module.weiuiAlertDialog;
 import vip.kuaifan.weiui.extend.module.weiuiCommon;
 import vip.kuaifan.weiui.extend.module.weiuiIhttp;
 import vip.kuaifan.weiui.extend.module.weiuiJson;
+import vip.kuaifan.weiui.extend.module.weiuiMap;
 import vip.kuaifan.weiui.extend.module.weiuiParse;
 import vip.kuaifan.weiui.ui.weiui;
 
@@ -53,7 +56,7 @@ public class Base {
      */
     public static class config {
 
-        public static boolean configDataIsDist;
+        private static boolean configDataIsDist;
         private static JSONObject configData;
 
         /**
@@ -61,6 +64,12 @@ public class Base {
          * @return
          */
         public static JSONObject get() {
+            if (weiuiCommon.getVariateStr("configDataIsDist").equals("clear")) {
+                weiuiCommon.setVariate("configDataIsDist", "");
+                FileUtils.deleteDir(weiui.getApplication().getExternalFilesDir("dist"));
+                FileUtils.deleteDir(weiui.getApplication().getExternalFilesDir("update"));
+                clear();
+            }
             if (configData == null) {
                 File tempDir = weiui.getApplication().getExternalFilesDir("dist");
                 File lockFile = new File(tempDir, weiuiCommon.getLocalVersion(weiui.getApplication()) + ".lock");
@@ -73,6 +82,7 @@ public class Base {
                         int read = fis.read(buffer);
                         fis.close();
                         if (read != -1) {
+                            weiuiCommon.setVariate("configDataIsDist", "true");
                             configDataIsDist = true;
                             configData = weiuiJson.parseObject(new String(buffer));
                             return configData;
@@ -88,6 +98,7 @@ public class Base {
          * 清除配置
          */
         public static void clear() {
+            weiuiCommon.setVariate("configDataIsDist", "false");
             configDataIsDist = false;
             configData = null;
         }
@@ -112,7 +123,7 @@ public class Base {
         }
 
         /**
-         * 获取主页配置
+         * 获取主页地址
          * @return
          */
         public static String getHome() {
@@ -130,6 +141,14 @@ public class Base {
                 homePage = "file://assets/weiui/index.js";
             }
             return homePage;
+        }
+
+        /**
+         * 判断是否
+         * @return
+         */
+        public static boolean isConfigDataIsDist() {
+            return configDataIsDist;
         }
     }
 
@@ -278,7 +297,7 @@ public class Base {
             //
             File welcomeFile = new File(welcome_image);
             if (welcomeFile.isFile()) {
-                Glide.with(activity).asBitmap().load(welcomeFile).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)).into(new SimpleTarget<Bitmap>() {
+                Glide.with(activity).asBitmap().load(welcomeFile).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.NONE)).into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         ImageView tmpImage = activity.findViewById(R.id.fillimage);
@@ -299,6 +318,10 @@ public class Base {
          * 云数据
          */
         public static void appData() {
+            if (weiuiCommon.getVariateStr("configDataNoUpdate").equals("clear")) {
+                weiuiCommon.setVariate("configDataNoUpdate", "");
+                return;
+            }
             String appkey = config.getString("appKey");
             if (appkey.length() == 0) {
                 return;
@@ -365,10 +388,9 @@ public class Base {
          */
         private static void checkUpdateLists(JSONArray lists, int number, boolean isReboot) {
             if (lists == null || lists.size() == 0) {
-                if (config.configDataIsDist) {
+                if (config.isConfigDataIsDist()) {
                     FileUtils.deleteDir(weiui.getApplication().getExternalFilesDir("dist"));
                     FileUtils.deleteDir(weiui.getApplication().getExternalFilesDir("update"));
-                    config.clear();
                     reboot();
                 }
                 return;
@@ -414,7 +436,42 @@ public class Base {
                                     fos.close();
                                     //
                                     weiuiIhttp.get("checkUpdateLists", apiUrl + "api/client/update/success?id=" + id, null, null);
-                                    checkUpdateLists(lists, number + 1, weiuiJson.getBoolean(data, "reboot") || isReboot);
+                                    switch (weiuiJson.getInt(data, "reboot")) {
+                                        case 1:
+                                            checkUpdateLists(lists, number + 1, true);
+                                            break;
+
+                                        case 2:
+                                            JSONObject rebootInfo = weiuiJson.parseObject(data.getJSONObject("reboot_info"));
+                                            JSONObject newJson = new JSONObject();
+                                            newJson.put("title", weiuiJson.getString(rebootInfo, "title"));
+                                            newJson.put("message", weiuiJson.getString(rebootInfo, "message"));
+                                            weiuiAlertDialog.confirm(weiui.getActivityList().getLast(), newJson, new JSCallback() {
+                                                @Override
+                                                public void invoke(Object data) {
+                                                    Map<String, Object> retData = weiuiMap.objectToMap(data);
+                                                    if (weiuiParse.parseStr(retData.get("status")).equals("click")) {
+                                                        if (weiuiParse.parseStr(retData.get("title")).equals("确定")) {
+                                                            if (weiuiJson.getBoolean(rebootInfo, "confirm_reboot")) {
+                                                                reboot();
+                                                                return;
+                                                            }
+                                                        }
+                                                        checkUpdateLists(lists, number + 1, isReboot);
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void invokeAndKeepAlive(Object data) {
+
+                                                }
+                                            });
+                                            break;
+
+                                        default:
+                                            checkUpdateLists(lists, number + 1, isReboot);
+                                            break;
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -446,14 +503,8 @@ public class Base {
         }
 
         private static void reboot() {
-            LinkedList<Activity> activityList = weiui.getActivityList();
-            Activity lastActivity = activityList.getLast();
-            Intent intent = lastActivity.getPackageManager().getLaunchIntentForPackage(lastActivity.getPackageName());
-            if (intent != null) {
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                lastActivity.startActivity(intent);
-                lastActivity.finish();
-            }
+            config.clear();
+            weiui.reboot();
         }
     }
 }

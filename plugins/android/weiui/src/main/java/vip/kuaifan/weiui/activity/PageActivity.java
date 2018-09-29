@@ -17,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AndroidRuntimeException;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -27,7 +26,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -1415,12 +1413,16 @@ public class PageActivity extends AppCompatActivity {
         dialog.addAction(weiuiCommon.getVariateInt("__deBugSocket:Status") == 1 ? "WiFi真机同步 [已连接]" : "WiFi真机同步");
         dialog.addAction("扫一扫");
         dialog.addAction("刷新");
+        dialog.addAction("重启APP");
+        if ("true".equals(weiuiCommon.getVariateStr("configDataIsDist"))) {
+            dialog.addAction("清除热更新数据");
+        }
         dialog.setEventListener(new ActionDialog.OnEventListener() {
             @Override
             public void onActionItemClick(ActionDialog dialog, ActionDialog.ActionItem item, int position) {
-                switch (position) {
-                    case 0:
-                        //WiFi真机同步
+                switch (item.title) {
+                    case "WiFi真机同步 [已连接]":
+                    case "WiFi真机同步":
                         String host = weiuiCommon.getVariateStr("__deBugSocket:Host");
                         String port = weiuiCommon.getVariateStr("__deBugSocket:Port");
                         String inputObject = "{title:\"WiFi真机同步配置\",message:\"配置成功后，可实现真机同步实时预览\",buttons:[\"取消\",\"连接\"],inputs:[{type:'text',placeholder:'请输入IP地址',value:'" + host + "'},{type:'number',placeholder:'请输入端口号',value:'" + port + "'}]}";
@@ -1447,8 +1449,7 @@ public class PageActivity extends AppCompatActivity {
                         });
                         break;
 
-                    case 1:
-                        //扫一扫
+                    case "扫一扫":
                         PageActivity.startScanerCode(PageActivity.this, "{}", new JSCallback() {
                             @Override
                             public void invoke(Object data) {
@@ -1490,9 +1491,34 @@ public class PageActivity extends AppCompatActivity {
                         });
                         break;
 
-                    case 2:
-                        //刷新
+                    case "刷新":
                         reload();
+                        break;
+
+                    case "重启APP":
+                        JSONObject newJson = new JSONObject();
+                        newJson.put("title", "热重启APP");
+                        newJson.put("message", "确认要关闭所有页面热重启APP吗？");
+                        weiuiAlertDialog.confirm(weiui.getActivityList().getLast(), newJson, new JSCallback() {
+                            @Override
+                            public void invoke(Object data) {
+                                Map<String, Object> retData = weiuiMap.objectToMap(data);
+                                if (weiuiParse.parseStr(retData.get("status")).equals("click") && weiuiParse.parseStr(retData.get("title")).equals("确定")) {
+                                    weiui.reboot();
+                                }
+                            }
+
+                            @Override
+                            public void invokeAndKeepAlive(Object data) {
+
+                            }
+                        });
+                        break;
+
+                    case "清除热更新数据":
+                        weiuiCommon.setVariate("configDataIsDist", "clear");
+                        weiuiCommon.setVariate("configDataNoUpdate", "clear");
+                        weiui.reboot();
                         break;
                 }
             }

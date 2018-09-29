@@ -2,6 +2,7 @@ package vip.kuaifan.weiui.ui;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.taobao.weex.InitConfig.Builder;
@@ -65,6 +66,20 @@ public class weiui {
 
     public static void setDebug(boolean debug) {
         weiui.debug = debug;
+    }
+
+    public static void reboot() {
+        LinkedList<Activity> activityList = weiui.getActivityList();
+        for (int i = 0; i < activityList.size() - 1; i++) {
+            activityList.get(i).finish();
+        }
+        Activity lastActivity = activityList.getLast();
+        Intent intent = lastActivity.getPackageManager().getLaunchIntentForPackage(lastActivity.getPackageName());
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            lastActivity.startActivity(intent);
+            lastActivity.finish();
+        }
     }
 
     private static void setTopActivity(final Activity activity) {
