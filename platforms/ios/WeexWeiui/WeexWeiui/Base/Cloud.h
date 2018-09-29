@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) appData;
 + (void) saveWelcomeImage:(NSString*)url wait:(NSInteger)wait;
 + (void) checkUpdateLists:(NSMutableArray*)lists number:(NSInteger)number isReboot:(BOOL)isReboot;
-+ (void) clear;
 + (void) reboot;
++ (void) clearUpdate;
 
 @end
 

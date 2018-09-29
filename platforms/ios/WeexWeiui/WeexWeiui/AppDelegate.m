@@ -28,28 +28,23 @@
 
 @implementation AppDelegate
 
-ViewController *vController;
+ViewController *mController;
 MNAssistiveBtn *debugBtn;
 NSString *socketHost;
 NSString *socketPort;
 NSTimeInterval reconnectionNumber;
-NSDictionary *appLaunchOptions;
+NSDictionary *mLaunchOptions;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    appLaunchOptions = launchOptions;
+    mLaunchOptions = launchOptions;
     
     #if DEBUG
-    vController = [[ViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vController];
+    mController = [[ViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:mController];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = navi;
     [self.window makeKeyAndVisible];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setDebugBtn:self.isSocketConnect];
-        [self setSocketData];
-        [self setSocketConnect:@"initialize"];
-    });
+    [self initDebug:0];
     #endif
     
     [Cloud welcome:self.window];
@@ -109,26 +104,25 @@ NSDictionary *appLaunchOptions;
         NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
         NSString *appSecret = [NSString stringWithFormat:@"%@", umeng[@"appSecret"]];
         NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
-        [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:appLaunchOptions];
+        [[WeiuiUmengManager sharedIntstance] init:appKey secret:appSecret channel:channel launchOptions:mLaunchOptions];
     }
 }
 
-//获取中间字符串
-- (NSString *) getMiddle:(NSString *)string start:(NSString *)startString to:(NSString *)endString {
-    NSString *text = string;
-    if (text.length) {
-        if (startString.length && [text containsString:startString]) {
-            NSRange startRange = [text rangeOfString:startString];
-            NSRange range = NSMakeRange(startRange.location + startRange.length, text.length - startRange.location - startRange.length);
-            text = [text substringWithRange:range];
-        }
-        if (endString.length && [text containsString:endString]) {
-            NSRange endRange = [text rangeOfString:endString];
-            NSRange range = NSMakeRange(0, endRange.location);
-            text = [text substringWithRange:range];
-        }
+//初始化DEBUG
+-(void) initDebug:(NSInteger) number {
+    if (number > 100) {
+        [self setDebugBtn:self.isSocketConnect];
+        [self setSocketData];
+        [self setSocketConnect:@"initialize"];
+        return;
     }
-    return text;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([mController isReady]) {
+            [self initDebug:999];
+        }else{
+            [self initDebug:number+1];
+        }
+    });
 }
 
 //添加悬浮按钮
@@ -174,7 +168,7 @@ NSDictionary *appLaunchOptions;
     }]];
     if ([Config isConfigDataIsDist]) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"清除热更新数据" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [Cloud clear];
+            [Cloud clearUpdate];
         }]];
     }
     
@@ -229,9 +223,9 @@ NSDictionary *appLaunchOptions;
             NSString *url = text, *host = @"", *port = @"";
             if ([url hasPrefix:@"http"]) {
                 if ([text containsString:@"?socket="]) {
-                    url = [self getMiddle:text start:nil to:@"?socket="];
-                    host = [self getMiddle:text start:@"?socket=" to:@":"];
-                    port = [self getMiddle:text start:[NSString stringWithFormat:@"?socket=%@:", host] to:@"&"];
+                    url = [Config getMiddle:text start:nil to:@"?socket="];
+                    host = [Config getMiddle:text start:@"?socket=" to:@":"];
+                    port = [Config getMiddle:text start:[NSString stringWithFormat:@"?socket=%@:", host] to:@"&"];
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -339,9 +333,9 @@ NSDictionary *appLaunchOptions;
     NSString *msg = (NSString *)message;
     if ([msg hasPrefix:@"HOMEPAGE:"]) {
         [[[DeviceUtil getTopviewControler] navigationController] popToRootViewControllerAnimated:NO];
-        [vController loadUrl:[msg substringFromIndex:9]];
+        [mController loadUrl:[msg substringFromIndex:9]];
     }else if ([msg hasPrefix:@"HOMEPAGEBACK:"]) {
-        [vController loadUrl:[msg substringFromIndex:14]];
+        [mController loadUrl:[msg substringFromIndex:14]];
     }else if ([msg isEqualToString:@"RELOADPAGE"]) {
         [self refresh];
     }

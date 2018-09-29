@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		532E406F594B06E77A17129D /* libPods-WeexWeiui.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF4738D867E50FB2D943A92A /* libPods-WeexWeiui.a */; };
-		B2056245215F453F0020E459 /* Debug.m in Sources */ = {isa = PBXBuildFile; fileRef = B2056244215F453F0020E459 /* Debug.m */; };
 		B21356352124045E00EDD991 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B21356342124045E00EDD991 /* AppDelegate.m */; };
 		B21356382124045E00EDD991 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B21356372124045E00EDD991 /* ViewController.m */; };
 		B213563B2124045E00EDD991 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21356392124045E00EDD991 /* Main.storyboard */; };
@@ -405,8 +404,6 @@
 /* Begin PBXFileReference section */
 		21618EA4FE8A980870624E1A /* libPods-WeexWeiuiUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeexWeiuiUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B7109449833C8668CA8EA08 /* Pods-WeexWeiui.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeexWeiui.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WeexWeiui/Pods-WeexWeiui.debug.xcconfig"; sourceTree = "<group>"; };
-		B2056243215F453F0020E459 /* Debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
-		B2056244215F453F0020E459 /* Debug.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Debug.m; sourceTree = "<group>"; };
 		B21356302124045E00EDD991 /* WeexWeiui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeexWeiui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21356332124045E00EDD991 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B21356342124045E00EDD991 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -2471,8 +2468,6 @@
 				B238CFAF215CFB3000E5D4CB /* Update.m */,
 				B238CFB1215CFB4200E5D4CB /* Cloud.h */,
 				B238CFB2215CFB4200E5D4CB /* Cloud.m */,
-				B2056243215F453F0020E459 /* Debug.h */,
-				B2056244215F453F0020E459 /* Debug.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2935,7 +2930,6 @@
 				B2242D1621345148001C951B /* WXRecyclerComponent.m in Sources */,
 				B2242D4B21345148001C951B /* WXThreadSafeMutableDictionary.m in Sources */,
 				B2242D0B21345148001C951B /* WXTransform.m in Sources */,
-				B2056245215F453F0020E459 /* Debug.m in Sources */,
 				B2242CAE21345148001C951B /* DGActivityIndicatorTripleRingsAnimation.m in Sources */,
 				B2242D0621345148001C951B /* WXLoadingIndicator.m in Sources */,
 				B2242D8D21345149001C951B /* MKAnnotationView+WebCache.m in Sources */,

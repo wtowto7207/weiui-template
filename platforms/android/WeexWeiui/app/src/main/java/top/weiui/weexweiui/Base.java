@@ -329,10 +329,12 @@ public class Base {
             //读取云配置
             Map<String, Object> data = new HashMap<>();
             data.put("appkey", appkey);
+            data.put("package", weiui.getApplication().getPackageName());
             data.put("version", weiuiCommon.getLocalVersion(weiui.getApplication()));
             data.put("versionName", weiuiCommon.getLocalVersionName(weiui.getApplication()));
             data.put("screenWidth", ScreenUtils.getScreenWidth());
             data.put("screenHeight", ScreenUtils.getScreenHeight());
+            data.put("platform", "android");
             data.put("debug", BuildConfig.DEBUG ? 1 : 0);
             weiuiIhttp.get("main", apiUrl + "api/client/app", data, new weiuiIhttp.ResultCallback() {
                 @Override

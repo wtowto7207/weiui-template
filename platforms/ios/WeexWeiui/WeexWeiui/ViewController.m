@@ -16,13 +16,15 @@
 
 @interface ViewController ()
 
+@property (nonatomic, assign) BOOL ready;
+
 @end
 
 @implementation ViewController
 
 WXMainViewController *homeController;
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     NSString *bundleUrl = [Config getHome];
@@ -31,8 +33,8 @@ WXMainViewController *homeController;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[WeexSDKManager sharedIntstance] setup];
-        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([Cloud welcome:nil] * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.ready = YES;
             homeController = [[WXMainViewController alloc] init];
             homeController.url = bundleUrl;
             homeController.statusBarType = @"normal";
@@ -51,10 +53,14 @@ WXMainViewController *homeController;
     });
 }
 
-- (void)loadUrl: (NSString*)url {
+- (void) loadUrl:(NSString*) url {
     [WeexSDKManager sharedIntstance].weexUrl = url;
     [homeController setHomeUrl: url];
     [homeController refreshPage];
+}
+
+- (BOOL) isReady {
+    return self.ready;
 }
 
 @end

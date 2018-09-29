@@ -55,19 +55,22 @@ static UIImageView *welcomeView;
         return;
     }
     NSString *url = [[NSString alloc] initWithFormat:@"%@api/client/app", apiUrl];
+    NSString *package = [[NSBundle mainBundle]bundleIdentifier];
     NSString *version = [NSString stringWithFormat:@"%ld", [Config getLocalVersion]];
     NSString *versionName = [Config getLocalVersionName];
     NSString *screenWidth = [NSString stringWithFormat:@"%f", [UIScreen mainScreen].bounds.size.width];
     NSString *screenHeight = [NSString stringWithFormat:@"%f", [UIScreen mainScreen].bounds.size.height];
     NSString *debug = @"0";
-     #if DEBUG
+    #if DEBUG
     debug = @"1";
     #endif
     NSDictionary *params = @{@"appkey": appkey,
+                             @"package": package,
                              @"version": version,
                              @"versionName": versionName,
                              @"screenWidth": screenWidth,
                              @"screenHeight": screenHeight,
+                             @"platform": @"ios",
                              @"debug": debug};
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -103,7 +106,7 @@ static UIImageView *welcomeView;
 {
     if (lists == nil || [lists count] == 0) {
         if ([Config isConfigDataIsDist]) {
-            [self clear];
+            [self clearUpdate];
         }
         return;
     }
@@ -148,26 +151,51 @@ static UIImageView *welcomeView;
     NSString *tempUrl = [[NSString alloc] initWithFormat:@"%@api/client/update/success?id=%@", apiUrl, id];
     [manager GET:tempUrl parameters:nil progress:nil success:nil failure:nil];
     //
-    isReboot = [[NSString stringWithFormat:@"%@", data[@"reboot"]] isEqualToString:@"1"] ? YES : isReboot;
-    [self checkUpdateLists:lists number:number+1 isReboot:isReboot];
-}
-
-//清除热更新缓存
-+ (void) clear
-{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    [fm removeItemAtPath:[Config getPath:@"dist"] error:nil];
-    [fm removeItemAtPath:[Config getPath:@"update"] error:nil];
-    [self reboot];
+    NSString *reboot = [NSString stringWithFormat:@"%@", data[@"reboot"]];
+    if ([reboot isEqualToString:@"1"]) {
+        [self checkUpdateLists:lists number:number+1 isReboot:YES];
+    }else if ([reboot isEqualToString:@"2"]) {
+        NSMutableDictionary *rebootInfo = [data objectForKey:@"reboot_info"];
+        UIAlertController * alertController = [UIAlertController
+                                               alertControllerWithTitle: [NSString stringWithFormat:@"%@", rebootInfo[@"title"]]
+                                               message: [NSString stringWithFormat:@"%@", rebootInfo[@"message"]]
+                                               preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self checkUpdateLists:lists number:number+1 isReboot:isReboot];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            if ([rebootInfo[@"confirm_reboot"] integerValue] == 1) {
+                [self reboot];
+                [self appData];
+            }else{
+                [self checkUpdateLists:lists number:number+1 isReboot:isReboot];
+            }
+        }]];
+        UIWindow *alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        alertWindow.rootViewController = [[UIViewController alloc] init];
+        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+        [alertWindow makeKeyAndVisible];
+        [alertWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }else{
+        [self checkUpdateLists:lists number:number+1 isReboot:isReboot];
+    }
 }
 
 //重启APP
 + (void) reboot
 {
-    NSLog(@"Reenter the home page");
     [Config clear];
     [[[DeviceUtil getTopviewControler] navigationController] popToRootViewControllerAnimated:NO];
     [[[ViewController alloc]init] loadUrl:[Config getHome]];
+}
+
+//清除热更新缓存
++ (void) clearUpdate
+{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    [fm removeItemAtPath:[Config getPath:@"dist"] error:nil];
+    [fm removeItemAtPath:[Config getPath:@"update"] error:nil];
+    [self reboot];
 }
 
 @end

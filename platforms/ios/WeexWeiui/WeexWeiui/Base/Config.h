@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL) isDir:(NSString*)path;
 + (NSString *) getyyyMMddHHmmss;
 + (NSString *) MD5ForLower32Bate:(NSString *)str;
++ (NSString *) getMiddle:(NSString *)string start:(nullable NSString *)startString to:(nullable NSString *)endString;
 
 @end
 

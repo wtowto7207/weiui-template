@@ -179,4 +179,22 @@ static NSMutableDictionary *configData;
     return digest;
 }
 
+//获取中间字符串
++ (NSString *) getMiddle:(NSString *)string start:(nullable NSString *)startString to:(nullable NSString *)endString {
+    NSString *text = string;
+    if (text.length) {
+        if (startString != nil && startString.length && [text containsString:startString]) {
+            NSRange startRange = [text rangeOfString:startString];
+            NSRange range = NSMakeRange(startRange.location + startRange.length, text.length - startRange.location - startRange.length);
+            text = [text substringWithRange:range];
+        }
+        if (endString != nil && endString.length && [text containsString:endString]) {
+            NSRange endRange = [text rangeOfString:endString];
+            NSRange range = NSMakeRange(0, endRange.location);
+            text = [text substringWithRange:range];
+        }
+    }
+    return text;
+}
+
 @end
