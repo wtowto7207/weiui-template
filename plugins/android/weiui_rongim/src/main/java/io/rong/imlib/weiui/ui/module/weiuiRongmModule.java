@@ -21,7 +21,7 @@ import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
 import io.rong.imlib.weiui.ui.weiui_rongim;
 import io.rong.message.TextMessage;
-import vip.kuaifan.weiui.extend.module.weiuiJson;
+import cc.weiui.framework.extend.module.weiuiJson;
 
 /**
  * Created by WDM on 2018/4/29.

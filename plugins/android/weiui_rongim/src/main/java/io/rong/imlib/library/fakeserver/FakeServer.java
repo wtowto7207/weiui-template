@@ -6,9 +6,9 @@ import java.security.NoSuchAlgorithmException;
 
 import io.rong.imlib.model.UserInfo;
 import io.rong.imlib.weiui.ui.weiui_rongim;
-import vip.kuaifan.weiui.extend.module.weiuiCommon;
-import vip.kuaifan.weiui.extend.module.weiuiJson;
-import vip.kuaifan.weiui.ui.weiui;
+import cc.weiui.framework.extend.module.weiuiCommon;
+import cc.weiui.framework.extend.module.weiuiJson;
+import cc.weiui.framework.ui.weiui;
 
 public class FakeServer {
 

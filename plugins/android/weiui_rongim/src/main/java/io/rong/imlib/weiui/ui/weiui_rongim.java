@@ -17,7 +17,7 @@ import io.rong.imlib.model.Message;
 import io.rong.imlib.model.MessageContent;
 import io.rong.imlib.model.UserInfo;
 import io.rong.imlib.weiui.ui.module.weiuiRongmModule;
-import vip.kuaifan.weiui.ui.weiui;
+import cc.weiui.framework.ui.weiui;
 
 /**
  * LiveKit是融云直播聊天室Demo对IMLib库的接口封装类。目的是在IMLib库众多通用接口中，提炼出与直播聊天室应用相关的常用接口，

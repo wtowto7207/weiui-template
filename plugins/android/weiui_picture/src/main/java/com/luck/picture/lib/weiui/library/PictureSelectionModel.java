@@ -241,7 +241,7 @@ public class PictureSelectionModel {
 
     /**
      * @param sizeMultiplier The multiplier to apply to the
-     *                       {@link vip.kuaifan.weiui.extend.integration.glide.request.target.Target}'s dimensions when
+     *                       {@link cc.weiui.framework.extend.integration.glide.request.target.Target}'s dimensions when
      *                       loading the resource.
      * @return
      */

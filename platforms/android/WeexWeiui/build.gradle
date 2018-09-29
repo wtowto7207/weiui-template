@@ -37,6 +37,8 @@ task clean(type: Delete) {
 
 subprojects {
     ext {
+        applicationId = "cc.weiui.playground"
+
         versionCode = 1
         versionName = "1.0.0"
 

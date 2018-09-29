@@ -15,7 +15,7 @@ import com.taobao.weex.common.WXModule;
 import java.util.HashMap;
 import java.util.Map;
 
-import vip.kuaifan.weiui.extend.module.weiuiJson;
+import cc.weiui.framework.extend.module.weiuiJson;
 
 
 public class weiuiCitypickerModule extends WXModule {

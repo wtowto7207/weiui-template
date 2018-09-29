@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import vip.kuaifan.weiui.extend.integration.glide.Glide;
-import vip.kuaifan.weiui.extend.integration.glide.load.engine.DiskCacheStrategy;
-import vip.kuaifan.weiui.extend.integration.glide.request.RequestOptions;
-import vip.kuaifan.weiui.extend.integration.glide.request.target.BitmapImageViewTarget;
+import cc.weiui.framework.extend.integration.glide.Glide;
+import cc.weiui.framework.extend.integration.glide.load.engine.DiskCacheStrategy;
+import cc.weiui.framework.extend.integration.glide.request.RequestOptions;
+import cc.weiui.framework.extend.integration.glide.request.target.BitmapImageViewTarget;
 import com.luck.picture.lib.weiui.library.R;
 import com.luck.picture.lib.weiui.library.config.PictureMimeType;
 import com.luck.picture.lib.weiui.library.entity.LocalMedia;

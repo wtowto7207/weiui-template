@@ -11,12 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import vip.kuaifan.weiui.extend.integration.glide.Glide;
-import vip.kuaifan.weiui.extend.integration.glide.Priority;
-import vip.kuaifan.weiui.extend.integration.glide.load.engine.DiskCacheStrategy;
-import vip.kuaifan.weiui.extend.integration.glide.request.RequestOptions;
-import vip.kuaifan.weiui.extend.integration.glide.request.target.SimpleTarget;
-import vip.kuaifan.weiui.extend.integration.glide.request.transition.Transition;
+import cc.weiui.framework.extend.integration.glide.Glide;
+import cc.weiui.framework.extend.integration.glide.Priority;
+import cc.weiui.framework.extend.integration.glide.load.engine.DiskCacheStrategy;
+import cc.weiui.framework.extend.integration.glide.request.RequestOptions;
+import cc.weiui.framework.extend.integration.glide.request.target.SimpleTarget;
+import cc.weiui.framework.extend.integration.glide.request.transition.Transition;
 import com.luck.picture.lib.weiui.library.PictureVideoPlayActivity;
 import com.luck.picture.lib.weiui.library.R;
 import com.luck.picture.lib.weiui.library.config.PictureConfig;

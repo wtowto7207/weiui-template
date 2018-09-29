@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <vip.kuaifan.weiui.extend.integration.iconify.widget.IconTextView
+        <cc.weiui.framework.extend.integration.iconify.widget.IconTextView
             android:id="@+id/iv_tab_icontext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
 
     </LinearLayout>
 
-    <vip.kuaifan.weiui.extend.view.tablayout.widget.MsgView
+    <cc.weiui.framework.extend.view.tablayout.widget.MsgView
         android:id="@+id/rtv_msg_tip"
         xmlns:mv="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"

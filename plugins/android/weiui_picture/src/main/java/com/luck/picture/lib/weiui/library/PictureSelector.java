@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import vip.kuaifan.weiui.extend.module.weiuiCommon;
+import cc.weiui.framework.extend.module.weiuiCommon;
 
 /**
  * author：luck

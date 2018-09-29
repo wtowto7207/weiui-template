@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import vip.kuaifan.weiui.extend.integration.glide.Glide;
-import vip.kuaifan.weiui.extend.integration.glide.load.engine.DiskCacheStrategy;
-import vip.kuaifan.weiui.extend.integration.glide.request.RequestOptions;
+import cc.weiui.framework.extend.integration.glide.Glide;
+import cc.weiui.framework.extend.integration.glide.load.engine.DiskCacheStrategy;
+import cc.weiui.framework.extend.integration.glide.request.RequestOptions;
 import com.luck.picture.lib.weiui.library.R;
 import com.luck.picture.lib.weiui.library.anim.OptAnimationLoader;
 import com.luck.picture.lib.weiui.library.config.PictureConfig;

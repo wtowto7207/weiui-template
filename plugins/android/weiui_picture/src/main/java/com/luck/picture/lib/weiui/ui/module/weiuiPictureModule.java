@@ -23,15 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import vip.kuaifan.weiui.activity.PageActivity;
-import vip.kuaifan.weiui.extend.bean.PageBean;
+import cc.weiui.framework.activity.PageActivity;
+import cc.weiui.framework.extend.bean.PageBean;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import vip.kuaifan.weiui.extend.module.weiuiJson;
-import vip.kuaifan.weiui.extend.module.weiuiMap;
-import vip.kuaifan.weiui.extend.module.weiuiPage;
-import vip.kuaifan.weiui.extend.module.weiuiParse;
+import cc.weiui.framework.extend.module.weiuiJson;
+import cc.weiui.framework.extend.module.weiuiMap;
+import cc.weiui.framework.extend.module.weiuiPage;
+import cc.weiui.framework.extend.module.weiuiParse;
 
 import static android.app.Activity.RESULT_OK;
 

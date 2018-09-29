@@ -23,10 +23,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import vip.kuaifan.weiui.extend.integration.glide.Glide;
-import vip.kuaifan.weiui.extend.integration.glide.load.engine.DiskCacheStrategy;
-import vip.kuaifan.weiui.extend.integration.glide.load.resource.drawable.DrawableTransitionOptions;
-import vip.kuaifan.weiui.extend.integration.glide.request.RequestOptions;
+import cc.weiui.framework.extend.integration.glide.Glide;
+import cc.weiui.framework.extend.integration.glide.load.engine.DiskCacheStrategy;
+import cc.weiui.framework.extend.integration.glide.load.resource.drawable.DrawableTransitionOptions;
+import cc.weiui.framework.extend.integration.glide.request.RequestOptions;
 import com.yalantis.ucrop.weiui.library.model.CutInfo;
 
 import java.util.ArrayList;

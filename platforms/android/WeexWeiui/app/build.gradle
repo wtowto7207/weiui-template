@@ -4,7 +4,7 @@ android {
     compileSdkVersion project.compileSdkVersion
 
     defaultConfig {
-        applicationId "top.weiui.weexweiui"
+        applicationId project.applicationId
         minSdkVersion project.appMinSdkVersion
         targetSdkVersion project.targetSdkVersion
         versionCode project.versionCode

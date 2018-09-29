@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <vip.kuaifan.weiui.extend.view.tablayout.CommonTabLayout
+        <cc.weiui.framework.extend.view.tablayout.CommonTabLayout
             android:id="@+id/navigation_top"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -24,7 +24,7 @@
             tl:tl_indicator_width="12dp"
             tl:tl_textsize="14sp" />
 
-        <vip.kuaifan.weiui.extend.view.tablayout.SlidingTabLayout
+        <cc.weiui.framework.extend.view.tablayout.SlidingTabLayout
             android:id="@+id/navigation_sliding_top"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -40,7 +40,7 @@
 
     </LinearLayout>
 
-    <vip.kuaifan.weiui.extend.view.NoAnimationViewPager
+    <cc.weiui.framework.extend.view.NoAnimationViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -57,7 +57,7 @@
             android:layout_height="0.5dp"
             android:background="#EAEAEA"/>
 
-        <vip.kuaifan.weiui.extend.view.tablayout.CommonTabLayout
+        <cc.weiui.framework.extend.view.tablayout.CommonTabLayout
             android:id="@+id/navigation_bottom"
             android:layout_width="match_parent"
             android:layout_height="54dp"
