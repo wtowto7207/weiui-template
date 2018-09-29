@@ -146,33 +146,6 @@ module.exports = {
     "height": "100",
     "color": "#ffffff"
   },
-  "version-box": {
-    "width": "750",
-    "height": "82",
-    "flexDirection": "row",
-    "backgroundColor": "#ff6666"
-  },
-  "version-text": {
-    "flex": 1,
-    "paddingLeft": "20",
-    "fontSize": "26",
-    "color": "#ffffff",
-    "height": "82",
-    "lineHeight": "82"
-  },
-  "version-button": {
-    "color": "#ffffff",
-    "fontSize": "22",
-    "marginTop": "13",
-    "marginRight": "20",
-    "paddingLeft": "18",
-    "paddingRight": "18",
-    "height": "56",
-    "lineHeight": "56",
-    "borderWidth": "1",
-    "borderColor": "#e4e4e4",
-    "borderStyle": "solid"
-  },
   "list": {
     "width": "750",
     "flex": 1
@@ -269,36 +242,6 @@ Object.defineProperty(exports, "__esModule", {
 var _global = __webpack_require__(4);
 
 var weiui = weex.requireModule('weiui'); //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //

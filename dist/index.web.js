@@ -19292,7 +19292,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n.app[data-v-dad4f304] {\n    flex: 1;\n}\n.navbar[data-v-dad4f304] {\n    width: 10rem;\n    height: 1.33333rem;\n}\n.navbar-title[data-v-dad4f304] {\n    font-size: 0.42667rem;\n    color: #ffffff;\n}\n.navbar-icon[data-v-dad4f304] {\n    width: 1.33333rem;\n    height: 1.33333rem;\n    color: #ffffff;\n}\n.version-box[data-v-dad4f304] {\n    width: 10rem;\n    height: 1.09333rem;\n    flex-direction: row;\n    background-color: #ff6666;\n}\n.version-text[data-v-dad4f304] {\n    flex: 1;\n    padding-left: 0.26667rem;\n    font-size: 0.34667rem;\n    color: #ffffff;\n    height: 1.09333rem;\n    line-height: 1.09333rem;\n}\n.version-button[data-v-dad4f304] {\n    color: #ffffff;\n    font-size: 0.29333rem;\n    margin-top: 0.17333rem;\n    margin-right: 0.26667rem;\n    padding-left: 0.24rem;\n    padding-right: 0.24rem;\n    height: 0.74667rem;\n    line-height: 0.74667rem;\n    border-width: 1px;\n    border-color: #e4e4e4;\n    border-style: solid;\n}\n.list[data-v-dad4f304] {\n    width: 10rem;\n    flex: 1;\n}\n.list-title-box[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n}\n.list-title[data-v-dad4f304] {\n    padding-top: 0.48rem;\n    padding-right: 0.32rem;\n    padding-bottom: 0.32rem;\n    padding-left: 0.32rem;\n    font-size: 0.37333rem;\n    color: #757575;\n}\n.list-subtitle[data-v-dad4f304] {\n    position: absolute;\n    right: 0.32rem;\n    bottom: 0.32rem;\n    font-size: 0.32rem;\n}\n.list-item[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: space-between;\n    height: 1.33333rem;\n    width: 10rem;\n    padding-left: 0.26667rem;\n    padding-right: 0.26667rem;\n    border-top-width: 1px;\n    border-top-color: #e8e8e8;\n    border-top-style: solid;\n}\n.list-item-left[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: flex-start;\n    height: 1.33333rem;\n    flex: 1;\n}\n.list-left-icon[data-v-dad4f304] {\n    width: 0.8rem;\n    height: 0.8rem;\n    color: #3EB4FF;\n}\n.list-left-title[data-v-dad4f304] {\n    color: #242424;\n    padding-left: 0.16rem;\n    width: 5.06667rem;\n    font-size: 0.34667rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-left-title-history[data-v-dad4f304] {\n    color: #242424;\n    padding-left: 0.16rem;\n    width: 8rem;\n    font-size: 0.34667rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-right-title[data-v-dad4f304] {\n    color: #a2a2a2;\n    padding-right: 0.04rem;\n    font-size: 0.29333rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-right-icon[data-v-dad4f304] {\n    width: 0.53333rem;\n    height: 0.53333rem;\n    color: #C9C9CE;\n}\n.list-item-right[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: flex-end;\n    height: 1.33333rem;\n}\n", ""]);
+exports.push([module.i, "\n.app[data-v-dad4f304] {\n    flex: 1;\n}\n.navbar[data-v-dad4f304] {\n    width: 10rem;\n    height: 1.33333rem;\n}\n.navbar-title[data-v-dad4f304] {\n    font-size: 0.42667rem;\n    color: #ffffff;\n}\n.navbar-icon[data-v-dad4f304] {\n    width: 1.33333rem;\n    height: 1.33333rem;\n    color: #ffffff;\n}\n.list[data-v-dad4f304] {\n    width: 10rem;\n    flex: 1;\n}\n.list-title-box[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n}\n.list-title[data-v-dad4f304] {\n    padding-top: 0.48rem;\n    padding-right: 0.32rem;\n    padding-bottom: 0.32rem;\n    padding-left: 0.32rem;\n    font-size: 0.37333rem;\n    color: #757575;\n}\n.list-subtitle[data-v-dad4f304] {\n    position: absolute;\n    right: 0.32rem;\n    bottom: 0.32rem;\n    font-size: 0.32rem;\n}\n.list-item[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: space-between;\n    height: 1.33333rem;\n    width: 10rem;\n    padding-left: 0.26667rem;\n    padding-right: 0.26667rem;\n    border-top-width: 1px;\n    border-top-color: #e8e8e8;\n    border-top-style: solid;\n}\n.list-item-left[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: flex-start;\n    height: 1.33333rem;\n    flex: 1;\n}\n.list-left-icon[data-v-dad4f304] {\n    width: 0.8rem;\n    height: 0.8rem;\n    color: #3EB4FF;\n}\n.list-left-title[data-v-dad4f304] {\n    color: #242424;\n    padding-left: 0.16rem;\n    width: 5.06667rem;\n    font-size: 0.34667rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-left-title-history[data-v-dad4f304] {\n    color: #242424;\n    padding-left: 0.16rem;\n    width: 8rem;\n    font-size: 0.34667rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-right-title[data-v-dad4f304] {\n    color: #a2a2a2;\n    padding-right: 0.04rem;\n    font-size: 0.29333rem;\n    text-overflow: ellipsis;\n    lines: 1;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 1;\n}\n.list-right-icon[data-v-dad4f304] {\n    width: 0.53333rem;\n    height: 0.53333rem;\n    color: #C9C9CE;\n}\n.list-item-right[data-v-dad4f304] {\n    flex-direction: row;\n    align-items: center;\n    justify-content: flex-end;\n    height: 1.33333rem;\n}\n", ""]);
 
 // exports
 
@@ -19751,36 +19751,6 @@ Object.defineProperty(exports, "__esModule", {
 var _global = __webpack_require__(15);
 
 var weiui = weex.requireModule('weiui'); //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //

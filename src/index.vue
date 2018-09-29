@@ -127,36 +127,6 @@
         color: #ffffff;
     }
 
-    .version-box {
-        width: 750px;
-        height: 82px;
-        flex-direction: row;
-        background-color: #ff6666;
-    }
-
-    .version-text {
-        flex: 1;
-        padding-left: 20px;
-        font-size: 26px;
-        color: #ffffff;
-        height: 82px;
-        line-height: 82px;
-    }
-
-    .version-button {
-        color: #ffffff;
-        font-size: 22px;
-        margin-top: 13px;
-        margin-right: 20px;
-        padding-left: 18px;
-        padding-right: 18px;
-        height: 56px;
-        line-height: 56px;
-        border-width: 1px;
-        border-color: #e4e4e4;
-        border-style: solid;
-    }
-
     .list {
         width: 750px;
         flex: 1;
