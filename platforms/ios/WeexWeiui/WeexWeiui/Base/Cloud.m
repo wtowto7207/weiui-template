@@ -74,14 +74,16 @@ static UIImageView *welcomeView;
                              @"debug": debug};
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (responseObject) {
-            if ([[responseObject objectForKey:@"ret"] integerValue] == 1) {
-                NSDictionary *data = responseObject[@"data"];
-                NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:data];
-                [self saveWelcomeImage:[NSString stringWithFormat:@"%@", jsonData[@"welcome_image"]] wait:[[jsonData objectForKey:@"welcome_wait"] integerValue]];
-                [self checkUpdateLists:[jsonData objectForKey:@"uplists"] number:0 isReboot:NO];
+        @try {
+            if (responseObject) {
+                if ([[responseObject objectForKey:@"ret"] integerValue] == 1) {
+                    NSDictionary *data = responseObject[@"data"];
+                    NSMutableDictionary *jsonData = [NSMutableDictionary dictionaryWithDictionary:data];
+                    [self saveWelcomeImage:[NSString stringWithFormat:@"%@", jsonData[@"welcome_image"]] wait:[[jsonData objectForKey:@"welcome_wait"] integerValue]];
+                    [self checkUpdateLists:[jsonData objectForKey:@"uplists"] number:0 isReboot:NO];
+                }
             }
-        }
+        }@catch (NSException *exception) { }
     } failure:nil];
 }
 
