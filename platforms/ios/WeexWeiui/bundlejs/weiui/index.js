@@ -662,7 +662,8 @@ exports.default = {
         },
         openUrl: function openUrl(url) {
             weiui.openPage({
-                url: url
+                url: url,
+                pageType: 'weex'
             });
         },
         openWeb: function openWeb(url) {

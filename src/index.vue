@@ -422,7 +422,8 @@
 
             openUrl(url) {
                 weiui.openPage({
-                    url: url
+                    url: url,
+                    pageType: 'weex'
                 });
             },
 
