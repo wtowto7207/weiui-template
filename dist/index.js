@@ -452,17 +452,8 @@ var weiui = weex.requireModule('weiui'); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var jshome = 'http://weiui.cc/dist/';
 
 exports.default = {
     data: function data() {
@@ -471,131 +462,131 @@ exports.default = {
                 title: '轮播控件',
                 title_en: 'weiui_banner',
                 icon: 'easel',
-                url: 'http://weiui.cc/dist/component_banner.js'
+                url: jshome + 'component_banner.js'
             }, {
                 title: '常用按钮',
                 title_en: 'weiui_button',
                 icon: 'android-checkbox-blank',
-                url: 'http://weiui.cc/dist/component_button.js'
+                url: jshome + 'component_button.js'
             }, {
                 title: '网格容器',
                 title_en: 'weiui_grid',
                 icon: 'grid',
-                url: 'http://weiui.cc/dist/component_grid.js'
+                url: jshome + 'component_grid.js'
             }, {
                 title: '字体图标',
                 title_en: 'weiui_icon',
                 icon: 'ionic',
-                url: 'http://weiui.cc/dist/component_icon.js'
+                url: jshome + 'component_icon.js'
             }, {
                 title: '跑马文字',
                 title_en: 'weiui_marquee',
                 icon: 'code-working',
-                url: 'http://weiui.cc/dist/component_marquee.js'
+                url: jshome + 'component_marquee.js'
             }, {
                 title: '导航栏',
                 title_en: 'weiui_navbar',
                 icon: 'navicon',
-                url: 'http://weiui.cc/dist/component_navbar.js'
+                url: jshome + 'component_navbar.js'
             }, {
                 title: '列表容器',
                 title_en: 'weiui_recyler',
                 icon: 'ios-list 90%',
-                url: 'http://weiui.cc/dist/component_recyler.js'
+                url: jshome + 'component_recyler.js'
             }, {
                 title: '滚动文字',
                 title_en: 'weiui_scroll_text',
                 icon: 'more',
-                url: 'http://weiui.cc/dist/component_scroll_text.js'
+                url: jshome + 'component_scroll_text.js'
             }, {
                 title: '侧边栏',
                 title_en: 'weiui_side_panel',
                 icon: 'ios-box',
-                url: 'http://weiui.cc/dist/component_side_panel.js'
+                url: jshome + 'component_side_panel.js'
             }, {
                 title: '标签页面',
                 title_en: 'weiui_tabbar',
                 icon: 'filing',
-                url: 'http://weiui.cc/dist/component_tabbar.js'
+                url: jshome + 'component_tabbar.js'
             }],
 
             module: [{
                 title: '页面功能',
                 title_en: 'newPage',
                 icon: 'ios-book-outline 96%',
-                url: 'http://weiui.cc/dist/module_page.js'
+                url: jshome + 'module_page.js'
             }, {
                 title: '系统信息',
                 title_en: 'system',
                 icon: 'gear-a',
-                url: 'http://weiui.cc/dist/module_system.js'
+                url: jshome + 'module_system.js'
             }, {
                 title: '数据缓存',
                 title_en: 'caches',
                 icon: 'soup-can-outline',
-                url: 'http://weiui.cc/dist/module_caches.js'
+                url: jshome + 'module_caches.js'
             }, {
                 title: '单位转换',
                 title_en: 'weex px',
                 icon: 'ios-calculator',
-                url: 'http://weiui.cc/dist/module_weexpx.js'
+                url: jshome + 'module_weexpx.js'
             }, {
                 title: '确认对话框',
                 title_en: 'alert',
                 icon: 'android-alert 90%',
-                url: 'http://weiui.cc/dist/module_alert.js'
+                url: jshome + 'module_alert.js'
             }, {
                 title: '等待弹窗',
                 title_en: 'loading',
                 icon: 'load-d',
-                url: 'http://weiui.cc/dist/module_loading.js'
+                url: jshome + 'module_loading.js'
             }, {
                 title: '验证弹窗',
                 title_en: 'captcha',
                 icon: 'ios-checkmark-outline',
-                url: 'http://weiui.cc/dist/module_captcha.js'
+                url: jshome + 'module_captcha.js'
             }, {
                 title: '二维码扫描',
                 title_en: 'scaner',
                 icon: 'tb-scan',
-                url: 'http://weiui.cc/dist/module_scaner.js'
+                url: jshome + 'module_scaner.js'
             }, {
                 title: '跨域异步请求',
                 title_en: 'ajax',
                 icon: 'pull-request',
-                url: 'http://weiui.cc/dist/module_ajax.js'
+                url: jshome + 'module_ajax.js'
             }, {
                 title: '剪切板',
                 title_en: 'clipboard',
                 icon: 'ios-copy-outline',
-                url: 'http://weiui.cc/dist/module_plate.js'
+                url: jshome + 'module_plate.js'
             }, {
                 title: '提示消息',
                 title_en: 'toast',
                 icon: 'ios-barcode-outline',
-                url: 'http://weiui.cc/dist/module_toast.js'
+                url: jshome + 'module_toast.js'
             }, {
                 title: '广告弹窗',
                 title_en: 'adDialog',
                 icon: 'social-buffer-outline',
-                url: 'http://weiui.cc/dist/module_ad_dialog.js'
+                url: jshome + 'module_ad_dialog.js'
             }, {
                 title: '更多拓展模块',
                 title_en: 'expandModule',
                 icon: 'more',
-                url: 'http://weiui.cc/dist/index_expand.js'
+                url: jshome + 'index_expand.js'
             }],
 
             third_module: [{
                 title: '城市选择器',
                 title_en: 'citypicker',
                 icon: 'android-pin',
-                url: 'http://weiui.cc/dist/third_citypicker.js'
+                url: jshome + 'third_citypicker.js'
             }, {
                 title: '图片选择器',
                 title_en: 'pictureSelector',
                 icon: 'ios-camera-outline',
-                url: 'http://weiui.cc/dist/third_picture.js'
+                url: jshome + 'third_picture.js'
             }],
 
             about_lists: [{
@@ -613,16 +604,18 @@ exports.default = {
                 title_en: 'http://kuaifan.vip',
                 icon: 'social-rss-outline',
                 url: 'http://kuaifan.vip'
+            }, {
+                title: 'WEIUI版本',
+                title_en: weiui.getVersionName(),
+                icon: 'ios-information-outline',
+                url: 'http://weiui.cc'
             }],
 
-            history: [],
-
-            weiuiVer: ''
+            history: []
         };
     },
     mounted: function mounted() {
         this.history = (0, _global.jsonParse)(weiui.getCachesString("scaner", []), []);
-        this.weiuiVer = weiui.getVersionName();
         //
         weiui.setPageBackPressed(null, function () {
             weiui.confirm({
@@ -1290,31 +1283,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })], 1)])
-  }), _c('div', {
-    staticClass: ["list-item"]
-  }, [_c('div', {
-    staticClass: ["list-item-left"]
-  }, [_c('weiui_icon', {
-    staticClass: ["list-left-icon"],
-    attrs: {
-      "weiui": {
-        content: 'ios-information-outline'
-      }
-    }
-  }), _c('text', {
-    staticClass: ["list-left-title"]
-  }, [_vm._v("WEIUI版本")])], 1), _c('div', {
-    staticClass: ["list-item-right"]
-  }, [_c('text', {
-    staticClass: ["list-right-title"]
-  }, [_vm._v(_vm._s(_vm.weiuiVer))]), _c('weiui_icon', {
-    staticClass: ["list-right-icon"],
-    attrs: {
-      "weiui": {
-        content: 'ios-arrow-right 70%'
-      }
-    }
-  })], 1)]), (_vm.history.length > 0) ? _c('div', {
+  }), (_vm.history.length > 0) ? _c('div', {
     staticClass: ["list-title-box"]
   }, [_c('text', {
     staticClass: ["list-title"]

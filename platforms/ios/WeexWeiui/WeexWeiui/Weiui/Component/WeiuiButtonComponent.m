@@ -227,6 +227,14 @@ WX_EXPORT_METHOD(@selector(setLoading:))
             btn.backgroundColor = [WXConvert UIColor:_kmodel];
         }
     }
+    if (isUpdate) {
+        UIButton *btn = (UIButton*)self.view;
+        if (!btn.enabled) {
+            btn.layer.borderColor = [WXConvert CGColor:@"#E4E4E4"];
+        }else{
+            btn.layer.borderColor = [WXConvert CGColor:_borderColor];
+        }
+    }
 }
 
 #pragma mark methods

@@ -277,7 +277,7 @@ NSDictionary *mLaunchOptions;
 //获取socket地址及端口
 - (void) setSocketData {
     socketHost = [Config getString:@"socketHost"];
-    socketPort = [Config getString:@"socketHost"];
+    socketPort = [Config getString:@"socketPort"];
 }
 
 //开始请求连接
