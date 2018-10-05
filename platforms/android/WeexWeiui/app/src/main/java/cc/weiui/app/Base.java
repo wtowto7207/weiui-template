@@ -107,8 +107,8 @@ public class Base {
          * @param key
          * @return
          */
-        public static String getString(String key) {
-            return weiuiJson.getString(get(), key);
+        public static String getString(String key, String defaultVal) {
+            return weiuiJson.getString(get(), key, defaultVal);
         }
 
 
@@ -140,6 +140,20 @@ public class Base {
                 homePage = "file://assets/weiui/index.js";
             }
             return homePage;
+        }
+
+        /**
+         * 获取主页配置值
+         * @param key
+         * @param defaultVal
+         * @return
+         */
+        public static String getHomeParams(String key, String defaultVal) {
+            JSONObject params = getObject("homePageParams");
+            if (params == null) {
+                return defaultVal;
+            }
+            return weiuiJson.getString(params, key, defaultVal);
         }
 
         /**
@@ -321,7 +335,7 @@ public class Base {
                 weiuiCommon.setVariate("configDataNoUpdate", "");
                 return;
             }
-            String appkey = config.getString("appKey");
+            String appkey = config.getString("appKey", "");
             if (appkey.length() == 0) {
                 return;
             }

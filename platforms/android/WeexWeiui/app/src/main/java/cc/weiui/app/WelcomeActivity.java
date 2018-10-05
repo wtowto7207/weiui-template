@@ -24,7 +24,16 @@ public class WelcomeActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             PageBean mPageBean = new PageBean();
             mPageBean.setUrl(Base.config.getHome());
-            mPageBean.setPageType("weex");
+            mPageBean.setPageName(Base.config.getHomeParams("pageName", "FirstPage"));
+            mPageBean.setPageType(Base.config.getHomeParams("pageType", "weex"));
+            mPageBean.setParams(Base.config.getHomeParams("params", "{}"));
+            mPageBean.setCache(weiuiParse.parseLong(Base.config.getHomeParams("cache", "0")));
+            mPageBean.setLoading(weiuiParse.parseBool(Base.config.getHomeParams("loading", "true")));
+            mPageBean.setStatusBarType(Base.config.getHomeParams("statusBarType", "normal"));
+            mPageBean.setStatusBarColor(Base.config.getHomeParams("statusBarColor", "#3EB4FF"));
+            mPageBean.setStatusBarAlpha(weiuiParse.parseInt(Base.config.getHomeParams("statusBarAlpha", "0")));
+            mPageBean.setSoftInputMode(Base.config.getHomeParams("softInputMode", "auto"));
+            mPageBean.setBackgroundColor(Base.config.getHomeParams("backgroundColor", "#f4f8f9"));
             mPageBean.setCallback(new JSCallback() {
                 @Override
                 public void invoke(Object data) {

@@ -45,13 +45,23 @@ static NSMutableDictionary *configData;
 }
 
 //获取配置值
-+ (NSString *) getString:(NSString*)key
++ (NSString *) getString:(NSString*)key defaultVal:(NSString *)defaultVal
 {
     NSMutableDictionary *json = [self get];
     if (json == nil) {
-        return @"";
+        return defaultVal;
     }
-    return [NSString stringWithFormat:@"%@", json[key]];
+    NSString *str = [NSString stringWithFormat:@"%@", json[key]];
+    if (str == nil) {
+        return defaultVal;
+    }
+    if ([str isEqual:[NSNull null]] || [str isEqualToString:@"(null)"]) {
+        return defaultVal;
+    }
+    if (!str.length) {
+        return defaultVal;
+    }
+    return str;
 }
 
 //获取配置值
@@ -67,7 +77,7 @@ static NSMutableDictionary *configData;
 //获取主页地址
 + (NSString *) getHome
 {
-    NSString *homePage = [self getString:@"homePage"];
+    NSString *homePage = [self getString:@"homePage" defaultVal:@""];
     if (homePage.length == 0) {
         if (configDataIsDist) {
             NSString *indexFile = [self getPath:@"dist/index.js"];
@@ -80,6 +90,26 @@ static NSMutableDictionary *configData;
         homePage = [NSString stringWithFormat:@"file://%@/bundlejs/weiui/index.js", [NSBundle mainBundle].bundlePath];
     }
     return homePage;
+}
+
+//获取主页配置值
++ (NSString *) getHomeParams:(NSString*)key defaultVal:(NSString *)defaultVal
+{
+    NSDictionary *params = [self getObject:@"homePageParams"];
+    if (params == nil) {
+        return defaultVal;
+    }
+    NSString *str = [NSString stringWithFormat:@"%@", params[key]];
+    if (str == nil) {
+        return defaultVal;
+    }
+    if ([str isEqual:[NSNull null]] || [str isEqualToString:@"(null)"]) {
+        return defaultVal;
+    }
+    if (!str.length) {
+        return defaultVal;
+    }
+    return str;
 }
 
 //判断是否

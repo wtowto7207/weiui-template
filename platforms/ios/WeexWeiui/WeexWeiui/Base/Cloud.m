@@ -50,7 +50,7 @@ static UIImageView *welcomeView;
 //云数据
 + (void) appData
 {
-    NSString *appkey = [Config getString:@"appKey"];
+    NSString *appkey = [Config getString:@"appKey" defaultVal:@""];
     if (appkey.length == 0) {
         return;
     }

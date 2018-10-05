@@ -37,12 +37,16 @@ WXMainViewController *homeController;
             self.ready = YES;
             homeController = [[WXMainViewController alloc] init];
             homeController.url = bundleUrl;
-            homeController.statusBarType = @"normal";
-            homeController.backgroundColor = @"#f4f8f9";
-            homeController.params = @{};
+            homeController.pageName = [Config getHomeParams:@"params" defaultVal:@"FirstPage"];
+            homeController.pageType = [Config getHomeParams:@"pageType" defaultVal:@"weex"];
+            homeController.params = [Config getHomeParams:@"params" defaultVal:@"{}"];
+            homeController.cache = [[Config getHomeParams:@"cache" defaultVal:@"1000"] intValue];
+            homeController.loading = [[Config getHomeParams:@"loading" defaultVal:@"true"] isEqualToString:@"true"] ? YES : NO;
             homeController.isDisSwipeBack = YES;
-            homeController.cache = 1000;
-            homeController.pageName = @"FirstPage";
+            homeController.statusBarType = [Config getHomeParams:@"statusBarType" defaultVal:@"normal"];
+            homeController.statusBarColor = [Config getHomeParams:@"statusBarColor" defaultVal:@"#3EB4FF"];
+            homeController.statusBarAlpha = [[Config getHomeParams:@"statusBarAlpha" defaultVal:@"0"] intValue];
+            homeController.backgroundColor = [Config getHomeParams:@"backgroundColor" defaultVal:@"#f4f8f9"];
             homeController.statusBlock = ^(NSString *status) {
                 if ([status isEqualToString:@"create"]) {
                     [Cloud appData];

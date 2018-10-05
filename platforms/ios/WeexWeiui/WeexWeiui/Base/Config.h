@@ -13,9 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSMutableDictionary *) get;
 + (void) clear;
-+ (NSString *) getString:(NSString*)key;
++ (NSString *) getString:(NSString*)key defaultVal:(NSString *)defaultVal;
 + (NSMutableDictionary *) getObject:(NSString*)key;
 + (NSString *) getHome;
++ (NSString *) getHomeParams:(NSString*)key defaultVal:(NSString *)defaultVal;
 + (BOOL) isConfigDataIsDist;
 
 + (NSString *) getPath:(NSString*)name;
